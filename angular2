@@ -1,0 +1,147 @@
+					******************************************* ANGULAR JS 2***********************************
+					
+					
+1. 	ngIf:
+	 *ngIf='products && products.length'
+	 + Nếu điều kiện đúng, hiển thị các thẻ Html, ngược lại: không
+	 
+2. ngFor:
+	*ngFor='let product of products'
+	 
+3. Two-way binding:
+	ngModel:
+	- FormsModule
+	
+	Ex: <input [(ngModel)]='listFilter'>
+
+4. 	Property binding:
+	<img [src]='product.imageUrl'>
+	
+5. Event binding:
+	<button (click)='toggleImage()'>
+	
+6. Chuyển đổi kiểu format dữ liệu:
+	Ex: {{ product.productCode | lowercase }}
+		{{ product.price | currency:'USD':true:'1.2-2' }}
+		
+
+7. Custom Pipe:
+	Ex:
+	* B1:
+		import { PipeTransform, Pipe } from '@angular/core';
+
+			@Pipe({
+				name: 'convertToCharacter'
+			})
+
+			export class ConvertToCharacterPipe implements PipeTransform {
+				transform(value: any, ...args: any[]) {
+				   return value.replace(args, '_');
+				}
+			}
+	* B2: Declare in appModules:
+		@NgModule({
+		 declarations: [
+			AppComponent,
+			ProductListComponent,
+			ConvertToCharacterPipe
+		  ]
+		)}
+				
+			
+	* B3: Use in HTML
+		<td>{{product.productCode | lowercase | convertToCharacter:'-'}}</td>
+		
+
+8. Custom Pipe:
+	
+9. 	Service in Angular JS
+
+10. Observable:
+	Link: https://www.tiepphan.com/rxjs-reactive-programming/
+	
+	****** Tạo mới:
+		const observable = new Rx.Observable(function subscribe(observer) {
+		  const id = setInterval(() => {
+			observer.next('Hello Rxjs');
+		  }, 1000);
+		});
+		
+		* Tạo observable từ mảng
+		const arr = [1, 2, 3, 4];
+		const fromArrayObservable = Rx.Observable.from(arr);
+
+	***** Thực thi: invoke bằng cách subscribe
+		observable.subscribe(val => console.log(val));
+
+	
+11. Route để điều hướng load trang:
+	* import {RouterModule} from '@angular/router';
+	*    <router-outlet></router-outlet> : để render view
+	
+	*  RouterModule.forRoot(
+      [
+        {path: 'products', component: ProductListComponent}
+	  ]
+	  
+	*  Biding in view:    <li><a [routerLink]="['/products']">Home</a></li>
+	
+	
+12. Router dùng điều hướng navigate:
+	* import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
+	
+	*  constructor(private router: Router) {
+
+	}
+	
+	
+	* Sử dụng, và gọi binding hàm onBack() ở View:
+			onBack(): void {
+			this.router.navigate(['/products']);
+		  }
+
+
+
+13. Sử dụng ShareModule:
+	* Lệnh CLI tạo module: 
+		> ng g m shared/shared --flat -m products/product.module
+			: Tạo trong thư mục Share file shared.module và import nó vào product.module
+
+	
+	
+			_                      _                 ____ _     ___
+		   / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+		  / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+		 / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+		/_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+					   |___/
+	
+14. Angular CLI
+	* Install CLI:
+		npm -install -g @angular/cli
+	* Create new Application:
+		ng new app_name
+	* Launch app:
+		ng serve
+	* Update version CLI: 
+		npm install --save-dev @angular/cli@latest
+	* Genrate CLI:
+		+ Add component:
+			ng g c component_name
+			>> g: generate, c: component
+		+  Add Guard
+			ng g g 
+		+ Add module:
+			ng g m
+		+ Add pipe
+			ng g p
+	* Open current folder to VS Code:
+		> code .
+	* Build app:
+		+ ng build
+		+ Build app with minify script:
+			. ng build --prod
+			
+		
+15. 	
+		
