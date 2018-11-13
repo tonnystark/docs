@@ -1,0 +1,1372 @@
+﻿1. getElementById() tìm ra một phần tử có id xác định
+	Ex: 
+	- Hide 1 phần tử dùng:
+		+ document.getElementById('id2').style.display='none'
+	- Hiển thị phần tử:
+		+ document.getElementById('id2').style.display='block'
+	- Đổi style:
+	+	+  document.getElementById('id1').style = "width:50px; background-color:red;";
+
+2. Các mã script nên để dưới thẻ <body> để cải thiện tốc độ load nếu để ở đầu js sẽ biên dịch, gây chậm.
+3. Các giá trị String trong JS có thể đc ghi theo 2 cách: nháy kép & đơn
+	- "string"
+	- 'string'
+4.JS thực hiện phép tính từ trái -> phải.
+	Ex: var x = "Volvo" + 16 + 4;  => Volvo164
+	Ex: var x = 16 + 4 + "Volvo"; => 20Volvo
+5. Function: 
+	function name(parameter1, parameter2, parameter3) {
+    code to be executed
+	} 
+- parameters are the names listed in the function definition
+-  arguments are the real values received by the function when it is invoked
+
+6. Object trong JS
+	Ex:
+		var person = {
+		firstName:"John", 
+		lastName:"Doe",
+		age:50, 
+		eyeColor:"blue",
+		fullName: function(){
+			return firstName + " "  + lastName;
+			};
+		};
+	* "this" đối tượng hiện tại.
+
+	+ Cặp tên: giá trị gọi là Property.
+	+ JS object có thể chứa các Method
+	+ Cách truy cập Property:
+		- dùng objectName.propertyName. Ex: person.age
+		- objectName["propertyName"]	Ex: person["age"]
+	+ Cách truy cập method():
+		"objectName.methodName()"
+		Ex: name = person.fullName();
+	+ Nếu gọi method mà không có dấu () thì nó sẽ trả về phần định nghĩa function(text).
+	
+
+7. Các hàm với string:
+	- length: độ dài chuỗi
+	- indexOf(''): vị trí đầu
+	- lastIndexOf(): vị trí xuất hiện cuối
+		Ex: var str = "Please locate loc where 'locate' occurs!";
+			var index =  str.lastIndexOf("loc"); => 14
+	- slice(vị trí đầu, vị trí cuối): tách chuỗi.
+	- substring(f_index, l_index ): tương tự slice()
+		Ex: var str = "Apple, Banana, Kiwi";
+			var res = str.substring(7,13); 
+	- substr(f_index, số kí tự cần lấy).
+		Ex: var str = "Apple, Banana, Kiwi";
+			var res = str.substr(7,6); 
+	- replace(old_string, new_string): thay thế chuỗi.
+		* The replace() method does not change the string it is called on. It returns a new string.
+		
+	- toUpperCase(): chuyển sang HOA hết
+	- toLowerCase(): chuyển sang thường hết
+	- concat(): nối chuỗi
+		Ex: 
+			var text1 = "Hello";
+			var text2 = "World";
+			text3 = text1.concat(" ",text2); 
+					
+	- charAt(): lấy kí tự tại index
+		Ex:
+			 var str = "HELLO WORLD";
+			 str.charAt(0);            // returns H 
+	
+	- charCodeAt(): lấy ra kí tự unicode
+	
+	* Chuyển string sang Array:
+		- Dùng split() để chuyển string sang arr.
+		Ex: 
+		 var txt = "Hello Muni";       // String
+		 var arr = txt.split(" ");           // tách chuỗi bởi dấu cách 			
+		var text = "";
+		var i;
+		for (i = 0; i < arr.length; i++) {
+			text += arr[i] + "<br>"
+		}
+		=> dịch: chuyển chuỗi trên thành 1 mảng,
+
+8. Number method():
+	- toFixed() : trả về 1 chuỗi với một số thập phân nhất định.
+		Ex: var x = 9.656;
+			x.toFixed(2); // returns 9.66
+			
+	-toPrecision() returns a string, with a number written with a specified length:
+		Ex: var x = 9.656;
+			x.toPrecision();        // returns 9.656
+			x.toPrecision(2);       // returns 9.7
+	-valueOf() returns a number as a number.
+		Ex:  var x = 123;
+			x.valueOf();            // returns 123 from variable x
+			
+	* Global methods:
+		
+		Number() 		Returns a number, converted from its argument.
+		parseFloat() 	Parses its argument and returns a floating point number
+		parseInt() 		Parses its argument and returns an integer
+	
+		Ex: parseInt("10");         // returns 10
+			parseInt("10.33");      // returns 10
+	
+9. Math Object:
+	- Math.round(): làm tròn đến chữ số gần nó nhất, có thể tăng/ giảm
+	Ex: Math.round(4.7);            // returns 5
+		Math.round(4.4);            // returns 4 
+	- Math.ceil(): làm tròn "LÊN" chữ số gần nó nhất., chỉ tăng
+		Math.ceil(4.4);             // returns 5 
+	- Math.floor(): làm tròn "Xuống" chữ số gần nó nhất.
+		Ex: Math.floor(4.7);            // returns 4 
+		
+10. mouseOver trong jquery:
+	Ex:
+		 $(document).ready(function () {         
+            $('img[src="help.png"]').mouseover(function () {             
+                $('#' + getDivId(this)).fadeIn(500);
+            }).mouseout(function () {
+                $('#' + getDivId(this)).fadeOut(500);
+            });
+            function getDivId(helpIcon) {
+                var helpIconId = $(helpIcon).attr('id');
+                return helpIconId.replace('img', 'div');
+            }
+        });
+11. Các hàm với Date():
+		
+12. textContent:
+	The textContent property sets or returns the textual content of the specified node, and all its descendants.	
+		
+	Ex: 
+		<ul id="myList">
+		  <li id="item1">Coffee</li>
+		  <li id="item2">Tea</li>
+		</ul>
+			
+		function myFunction() {
+			var x = document.getElementById("myList").textContent;
+			document.getElementById("demo").innerHTML = x;
+		}
+				
+				
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					----------------------jQuery-------------
+1. $(document).ready() & $(window).load():
+	* $(document).ready()
+	- Sự kiện xảy ra đầu tiên khi DOM(document object model) được load xong, và sẵn sàng cho việc thao tác với Script.
+	- Sự kiện xảy ra sớm nhất trong quá trình tải trang, gọi trước khi các css, image đc gọi.
+	- Link: http://thachpham.com/web-development/javascript-jquery/dom-trong-javascript-can-ban.html
+
+	
+	* $(window).load():
+	- Sự kiện xảy ra SAU khi tất cả DOM và toàn bộ nội dung trang Web đc load xong.
+	 
+	* Lỗi jquery 3.0 url.indexOf error:
+	- Sửa dòng: $(window).load(function() { ... });
+		thành $(window).on('load', function() { ... });
+		
+2. Nhúng thư viện qua CDN:
+	CDN: là một hệ thống máy chủ phân tán chứa các tài nguyên: css, javascript.
+	Lợi ích:
+	- Hỗ trợ caching cho browser
+	- Tự tìm ra server gần nhất cho mình
+	- Giảm traffic cho server	
+	
+	Ex:   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"></script>	
+	Link: http://www.asp.net/ajax/cdn
+	
+	* Trước khi add CDN thì cần kiểm tra xem CDN có chết chưa, nếu chết rồi thì tự add vào thư viện của mình bằng lệnh:
+		 <script>
+			window.jQuery || document.write("<script src='Script\/bootstrap.min.js'><\/script>");
+		</script>
+	
+3. Các selector trong Jquery:
+	* Id selector:$('#...')
+	
+	- Khi sử dụng 'getElementById' cần lưu ý chỉ cần gõ tên Id vào, không cần dấu #, trả về một đối tượng DOM.
+	- khi sử dụng $('...') sẽ trả về 1 đối tượng jQuery.
+	
+	Ex:   document.getElementById('btn1').style.backgroundColor = "LightBlue";
+		- đổi thuộc tính Css :  
+			var btn = $('#btn1'); // lấy ra button
+			btn.click(function () {
+            $('#btn1').css('background-color', 'LightBlue');
+		
+		- Kiểm tra một phần tử có tồn tại không dùng:
+			 if (btn.length > 0)
+			 {	
+			 }
+	* Element selector :$(div)
+		Ex: $(div, p) : tất cả các thẻ div, p
+			$(div p) : tất cả các thẻ p trong div
+			..
+		- Để lặp qua mỗi element trong 1 bảng, dùng each:
+			 $('table tr').each(function () {
+                alert( $(this).html()); // this: là dòng 'tr'
+            });
+		- Đổi màu các dòng chẵn, lẽ trog bảng	
+			$('#table1 tr:even').css('background-color', 'LightBlue');
+			$('#table1 tr:odd').css('background-color', 'blue');
+			=> Dịch: chọn ra các bảng có Id table1 tại các dòng chẵn/ lẻ, đổi màu
+			
+			Link: http://csharp-video-tutorials.blogspot.com/2015/03/jquery-element-selector.html
+		
+	* Class  selector: $('.class'):
+		Ex:
+			$('.small') // Selects all elements with class small
+			$('.small,.big') // Selects all elements with class small or big
+			$('div.small,.big') // Chọn tất cả phần tử trong tag 'div' mà có class 'small' and any element with class big.
+			
+		Link: http://csharp-video-tutorials.blogspot.com/2015/03/jquery-class-selector.html
+		
+	* Attribute Selector : &('[attrible]')
+		Ex: Chọn tất cả các phần tử có attrible là 'title':
+		    $('[title]').css('border', '5px solid red');
+		- Chọn tất cả phần tử có thuộc tính "title có giá trị: divTitle":			
+			    $('[title="divTitle"]').css('border', '5px solid red');
+			
+		- Chọn tất cả các thẻ "div có thuộc tính title có giá trị divTitle"
+				   $('div[title="div1Title"]').css('border', '5px solid red');
+		- Chọn tất cả các thẻ "div vừa có thuộc tính Title và Style":
+					   $('div[title][style]').css('border', '5px solid black');
+		- Chọn tất cả các thẻ "div có thuộc tính Title HOẶC Style"
+					$('div[title],[style]').css('border', '5px solid black');
+					
+					
+		* Bổ sung:
+				Attribute Equals Selector [name="value"]
+				Attribute Not Equal Selector [name!="value"]
+				Attribute Contains Selector [name*="value"]
+				Attribute Contains Word Selector [name~="value"]
+				Attribute Contains Prefix Selector [name|="value"]
+				Attribute Starts With Selector [name^="value"]
+				Attribute Ends With Selector [name$="value"]
+			Ex:
+			Selects all elements that have title attribute value equal to div1Title
+			$('[title="div1Title"]') 
+
+			Selects all elements that have title attribute value not equal to div1Title
+			$('[title!="div1Title"]') 
+
+			Selects all elements that have title attribute value containing the given substring - Title
+			$('[title*="Title"]') 
+			
+			Link: http://csharp-video-tutorials.blogspot.com/2015/03/jquery-attribute-value-selector.html
+							
+		* Một số ví dụ:
+			Ex1:
+				   $('div[title]').filter(function () {
+					return $(this).attr('title').toLowerCase() == "divtitle"}).css('border', '4px solid blue');
+				=> chọn ra các thẻ div có thuộc tính title, chuyển sang thường hết.
+		
+			Ex2: Chọn ra các checkbox đã check, dùng lớp giả :checked
+				 $('#btnSubmit').click(function () {
+					var result = $('input[type="checkbox"]:checked'); // "chọn ra các input đã check"
+					if (result.length > 0) {
+						var resultString = result.length + " checkboxes checked <br/>";
+						result.each(function () {
+							resultString += $(this).val() + "<br/>";
+						});
+						$('#divResult').html(resultString);
+					}
+					else
+						$('#divResult').html('No checkbox is checked');
+				});
+			Link: http://csharp-video-tutorials.blogspot.com/2015/03/jquery-checked-selector.html
+	
+4.	Phương thức JSON.stringify():
+	- The JSON.stringify() method converts a JavaScript value to a JSON string,
+	Link:
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+	
+5. Dùng e.preventDefault() đặt trong function(e) ở Jquery để chặn link chỉ đến 1 url nào đó, dùng trong trường hợp tạo các liên kết để xóa Item trong giỏ...
+	Ex: <a href="#" data-id="@item.Product.ID" class="btn-deleteItem"><i class="fa fa-remove"></i> Xóa</a>
+	
+6. Json:
+	- Cách khai báo: "tên" : "giá trị"
+	+ var ten = {};
+	+ var ten = [{...}, {...}];  nếu là mảng
+	Ex:  var employeesJSON = {
+			"Todd": {
+				"firstName": "Todd",				
+			},
+			"Sara": {
+				"firstName": "Sara",			
+			}
+			};
+		var employeesJSON = [
+					{
+					"firstName": "Todd",				
+					},
+					{
+					"firstName": "Sara",			
+					}];
+	
+	I) Chuyển Json sang String: dùng "JSON.stringify(<jSon>)"
+		   var jsonString = '[{"firstName":"Muni","lastName":"Robert Jr","Salary":10000},{"firstName":"Bob","lastName":"Hanker","Salary":5000}]';
+         .
+		Ex:   var jsonToString = JSON.stringify(empJson);
+	
+	II). Chuyền chuỗi string dạng Json sang Json dùng: "JSON.parse(<jsonString>);"
+		Ex:  var stringTojson = JSON.parse(jsonString);
+		
+6. Add/ remove Attribute :
+	- Add Attribute:
+		Ex:
+			var config = {
+                'title': 'My title',
+                'style': 'border:3px solid blue',
+                'name':'My div'
+            };
+            $('div').attr(config);
+	- Remove Attribute:
+		Ex:  $('div[title]').removeAttr('title');
+		
+	
+7. Wrap	 elements:
+	- Dùng để bao các thẻ lại vs nhau.
+	- Link: http://csharp-video-tutorials.blogspot.com/2015/04/jquery-wrap-elements.html
+
+8. Append/ Prepend Element:
+	* Append Dùng để nối nội dung "đằng sau" một nội dung nào đó trong thẻ:
+	- Append:  $('div').append('<b> Tutorial</b>');
+	- AppendTo:    $('<b>Lession</b>').appendTo('div');
+	
+	* prepend: dùng để nối nội dung "đằng trước" một nội dung nào đó trong thẻ:
+	- Ex:     $('#sp1').prependTo('div'); // nối 1 nội dung trong thẻ có id #sp1 vào div.
+	
+	
+9. 	Insert element before and after:
+	To insert an element before another element
+	- before. Ex: $('div').before('<h3>Programming</h3>');
+	- insertBefore. Ex: $('<h3>Programming</h3>').insertBefore('div');
+
+	To insert an element after another element
+	- after
+	- inserAfter
+	
+10. Add/ removeClass
+	- Link: http://csharp-video-tutorials.blogspot.com/2015/04/jquery-add-or-remove-class.html
+	- addClass: thêm vào 1 class
+		Ex:   $('p').addClass('colorClass');
+	- removeClass: loại bỏ 1 class
+		Ex:   $('p').removeClass('colorClass');
+	- toggleClass: nếu phần tử hiện tại chưa có class thì thêm vào, nếu đã có thì gỡ ra.
+		Ex:   $('p').toggleClass('colorClass');
+		
+	- Đặt sự kiện khi focus 1 textbox:
+		Ex:  $(this).focus(function () {
+                    $(this).addClass('textBoxStyle');
+                });
+	- Sự kiện khi bỏ focus 1 textbox:
+		Ex:  $(this).blur(function () {
+                    $(this).removeClass('textBoxStyle');
+                });
+	
+11. Sự khác nhau giữa $('item').each() và $.each('obj', 'func') :
+	- $('item').each() dùng để lặp qua các phần tử trong 1 jQuery collection
+		Ex:     $('li').each(function (index, element) {
+					    result += 'Index = ' + index + ', Value = ' + $(element).text() + '<br/>';}
+						
+	- $.each('obj', 'func') để lặp qua các phần tử javaScript hay mảng.
+		Ex: 
+					var intArray = [100, 200, 300, 400, 500];
+				   $.each(intArray, function (index, element) {
+					result += 'Index = ' + index + ', Value = ' + element + '<br/>';
+						});
+	- Link: http://csharp-video-tutorials.blogspot.com/2015/04/difference-between-each-and-each.html
+		
+12. Map Function:
+	Link: http://api.jquery.com/jquery.map/
+	-$.map( realArray, function( val, i ) {
+		//....
+		}	
+		
+13. perent() trong jQuery:
+	- Trong DOM perent() đi lên 1 cấp trong cây.
+	Ex:   <li>
+			<p> (direct parent) </p> //"đây là parent"
+			<span>test</span>
+		  </li>
+	
+14. Event delegate: gán 1 sự kiện cho thẻ cha mà tất cả thẻ con có thể thực thi
+	- Dùng on/ off	
+	- Ex: 
+		 <script type="text/javascript">
+        $(document).ready(function () {
+			// tại thẻ ul cha gán sự kiện click cho bất cứ thẻ con nào dạng 'li'
+            $('ul').on('click', 'li', function () {
+                $(this).fadeOut(500);
+            });
+
+            $('#btnAdd').on('click', function () {
+                $('ul').append('<li>New List Item</li>');
+            });
+
+			// tắt tại đây
+            $('#btnUndelegate').on('click', function () {
+                $('ul').off('click', 'li');
+            });
+        });
+		
+	Link: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-event-delegation.html	
+		
+		
+15.  Gán sự kiện chỉ chạy 1 lần
+	- Dùng one:
+	- Ex:
+		<script>
+        $(document).ready(function () {
+            $('input[type=button]').one({
+                mouseover: function () {
+                    $(this).css('background-color', 'green');
+					// nếu không dùng 'one' thì phải dùng off ở dưới mỗi event
+                    //    $(this).off('mouseover');
+                },
+                mouseout: function () {
+                    $(this).css('background-color', 'white');
+                },
+                click: function () {
+                    alert('OK');
+                }
+            });
+        });
+    </script>
+	
+	Link: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-execute-event-only-once.html
+	
+16. Kiểm tra 1 sự kiện đã kích hoạt hay chưa
+	- Ex:
+	// chỉ hoạt động với các phần tử jquery, nếu javaScript nguyên gốc thì k hoạt động dđc
+	$(document).ready(function(){
+		  var jQueryobject = $('#btn');
+            var rowDOMElement = jQueryobject.get(0);
+
+            var eventobject = $._data(rowDOMElement, 'events');
+            if (eventobject != undefined && eventobject.click != undefined) {
+                alert('Click events already exist');
+            }
+	});
+	
+	Link?: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-how-to-check-if-event-is-already.html
+	
+17. prenvent Default: chặn 1 số thao tác trên page như right click, click link..:
+	- Link: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-preventdefault.html
+	* Chặn right click:
+		$(document).ready(function () {
+            $(this).on('contextmenu', function (e) {
+                e.preventDefault();
+                $('#divResult').append('Right click disabled<br/>')
+            });
+        });
+		
+	* Chặn khi click vào link:
+		  $(document).ready(function () {
+            $('#link').on('click', function(e) {
+                e.preventDefault();
+                $('#dv1').append('Diabled link click<br/>');
+            });
+			});
+	
+18. Kiểm tra việc scroll trang:
+	Link: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-scroll-event.html	
+	
+19.	Thêm/ bỏ thuộc tính:
+		// thêm thuộc tính
+	   - $(this).attr('disabled', 'disabled');
+        // loại bỏ thuộc tính
+       - btnStart.removeAttr('disabled');
+		// lấy ra một số thuộc tính
+		-  var mainImg = $('#imgMain');
+                //  lấy ra url của img hiện tại
+            - var currentImgURL = mainImg.attr('src');
+                // lấy ra index theo url trong array
+            - var currentImgIndex = $.inArray(currentImgURL, imgUrl);
+	
+	
+20.  By default, all HTML elements have a static position, and cannot be moved. To modify the position , set the CSS position property of the element to fixed, absolute or relative.	
+	
+21. animate function: Tạo hiệu ứng mượt mà cho đối tượng:
+	- syntax:
+			$('').animate( properties, [duration ], [easing ], [complete ] )
+	
+		+	properties: 	An object of CSS properties and values
+			duration: 	The duration for animation in milliseconds. Default is 400.
+			easing: 	Easing function to use for the transition. Default is swing. You could also use linear.
+			complete: 	A function to call once the animation is complete 
+	- Ex:
+		   $(this).animate({'height': 400,'width': 400}, 2000, 'linear', animationComplete);
+		   
+		    function animationComplete() {
+                    alert('animation complete');
+                }
+	
+22. Tạo % tiến độ công việc(jQuery P48)
+		* C1: 
+			// counter ban đầu là 1 và sẽ tự tăng lên theo giá trị tham số percent truyển vào
+			// ví dụ: percent = 3 => counter chạy từ 1-> 3, mỗi giá trị ứng với 1 step
+			// ở mổi step sẽ gán giá trị vào tag tương ứng
+			// ceil(): làm tròn lên số gần nhất. Ex: 4.3 => 5			
+	
+			$({counter: 1}).animate({counter: percent},
+                    {
+                        duration: 2000,
+                        step: function() {
+                            $('#innerDiv').text(Math.ceil(this.counter) + ' %');
+                        } 
+                    })
+			Link: http://csharp-video-tutorials.blogspot.com/2015/05/simple-jquery-progress-bar.html
+
+		* C2:
+			 $(document).ready(function () {
+				$('#myButton').click(function () {
+					animateProgressBar($('#ddlPercent').val());
+				});
+
+				function animateProgressBar(currentPercentage) {
+					$("#innerDiv").animate({ "width": (currentPercentage * 500) / 100 }, {
+						duration: 3000,
+						step: function (now, tween) {
+							$("#innerDiv").text(Math.ceil((now / 500) * 100) + ' %');
+						}
+					});
+				}
+			});
+			
+			- now: contains the value being animated (ở đây là currentPercentage)
+			- tween: chứa nhiều properties, trong đó có element, now(giá trị hiện tại), end(giá trị cuối).
+	
+		+ Link: http://api.jquery.com/animate/
+				http://csharp-video-tutorials.blogspot.com/2015/05/optimize-jquery-progress-bar.html
+	
+23. Kiểm tra checkbox hiện tại có check chưa?
+	Syntax:	 $(this).is(':checked') ? "value1" : "value2"
+
+	Ex:
+		<input type="password" id="txtPass"/>
+		<input type="checkbox" id="cbShowPass" />
+		
+		 $(document)
+            .ready(function() {
+                $('#cbShowPass')
+                    .click(function() {
+                        $('#txtPass').attr('type', $(this).is(':checked') ? "text" : "password");
+                    });
+            });
+		
+	
+24. Ajax load:
+	* Syntax 
+		load( url, [ data ], [ complete ] )
+		
+		+ callback function: là tham số thứ 3 (complete) trong hàm load(), chạy khi request hoàn tất
+			CallbackFunction(response, status, xhr)
+		Ex: Kiểm tra việc trả về nếu có lỗi thì in ra		
+			
+			$('#' + helpDiv + 'HelpDiv').load('GetHelpText.aspx', { HelpTextKey: helpDiv },
+				function (response, status, xhr) {
+					if (status == 'error') {
+						var errorMessage = 'status : ' + xhr.status + '<br/>';
+						errorMessage += 'status text : ' + xhr.statusText + '<br/>';
+						errorMessage += 'response : ' + response;
+						$('#divError').html(errorMessage);
+					}
+				})
+						
+		* Link: http://csharp-video-tutorials.blogspot.com/2015/05/jquery-load-callback-function.html				
+					
+	* Lấy ra danh sách một tập hợp các thẻ nào đó chung thuộc tính:
+	- Ex: Lấy ra các tag có attribute type=text:
+		  var textBox = $('input[type=text]');
+		  
+	- Kiểm tra việc focus đến 1 phần tử, tập hợp:
+		+ Ex: textBox.focus(function() {}
+	- Huỷ focus 1 phần tử:
+		+ Ex:    textBox.blur(function() {}
+		
+	- Ajax Load một phần tử từ trang khác:
+		+ Ex:   $('#' + divId).load('Help.html #' + divId);
+			=> Load trang Help, lấy ra phần tử có id nào đó...
+			
+	
+	
+	
+25. Ajax get():
+	 $.get('url', 'data', function (response) {
+    $('selector').html(response);
+
+	});	
+	
+	Link: http://csharp-video-tutorials.blogspot.com/2015/06/jquery-ajax-get-function.html
+
+26. post function():
+	$.post( url [, data ] [, success ] [, dataType ] )
+		
+	
+	* To make a get request we use jquery get function. jQuery load function can be used to make either a get or post request, depending on whether the data parameter is specified or not. POST method is used if data is provided, otherwise, GET is used.
+
+	* Sự khác biệt giữa GET và POST:
+		- get lấy dữ liệu từ server
+		- post: modify dữ liệu trên server
+	* Both GET and POST can be used to send data to the server. 	
+		
+	* Khi dùng get, data nối vào URL như query string , POST thì data chèn vào trong body
+
+	* Có một sồ giới hạn độ dài dữ liệu khi dùng GET tuỳ thuộc vào phần mềm trên client hay server. Nếu dữ liệu quá lớn thì dùng POST
+	
+	
+27. Chọn ra các phần tử trong 'jQuery':
+	Ex: $(":input") All input elements
+	Ex: $(":text") 	All input elements with type="text"
+	 	$(":checked") 	All checked input elements
+	 	$(":selected") 	All selected input elements
+	
+	
+28. jquery validate():
+	* Tải tại : https://jqueryvalidation.org
+	* Sử dụng: https://jqueryvalidation.org/documentation/
+	
+	Ex:
+	 
+		//-- tạo custom method		
+		   $.validator.addMethod("validEmail", function (value, element) {
+				// allow any non-whitespace characters as the host part
+				return this.optional(element) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);
+			}, 'Xin vui lòng nhập đúng email');
+
+	
+		$( "#myform" ).validate({
+		  rules: {
+			field: {
+			  required: true,
+			  validEmail:true
+			},
+			// highlight vùng lỗi
+			  highlight: function(element, errorClass) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+			// nối lỗi vào 1 chỗ khác
+			    errorPlacement: function(error, element) {
+                   if (element.attr('type') == 'checkbox') {
+                        element.closest('.form-group').children(0).prepend(error);
+                    } else
+                        error.insertAfter(element);	
+                } 
+		  }
+		})
+		
+		+ field: có thể là class, id
+		+ sử dụng errorPlacement:
+		
+				// nối lỗi vào 1 chỗ khác
+			    errorPlacement: function(error, element) {
+                    error.appendTo(element.parent().next());
+                } 
+			Ex:
+				  <div class="form-group">
+					<label for="fullname" class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-8"> // đây là parent()
+						// đây là element bị lỗi
+						<input type="text" id="fullname" name="fullname" class="form-control" />
+					</div>
+					// đây chính là next() của parent
+					<div class="col-sm-2">
+					</div>
+				</div>
+	
+
+29. Autocomplete với typeahead	
+	https://github.com/twitter/typeahead.js
+	
+30. Một số kí hiệu path:
+		/ is the root folder of the filesystem.
+		./ usually denotes the current folder that your program or script is in, usually the same one with the file you run.
+		../ denotes the folder above the current one.
+	
+31. Lưu data dùng web API và $.ajax():
+	Link: http://csharp-video-tutorials.blogspot.com/2015/06/save-data-using-aspnet-web-services-and.html
+	Ex:
+		   $('#btnAddEmployee').click(function () {
+                var emp = {};
+                emp.Name = $('#txtName').val();
+                emp.Gender = $('#txtGender').val();
+                emp.Salary = $('#txtSalary').val();
+
+                $.ajax({
+                    url: 'EmpWebService.asmx/AddEmployee',
+                    method: 'post',
+                    contentType: 'application/json; charset=utf-8',
+					//or data: JSON.stringify({ employeeId: empId })
+                    data: '{emp:' +  JSON.stringify(emp) + '}',
+                    success: function () {
+                        getAllEmp(); 
+                    },
+                error: function (err) {
+                    alert(err);
+					}
+				});
+
+			});
+		
+		 
+32. Một số setting của $.ajax():
+	Link: http://api.jquery.com/jquery.ajax/
+	Ex:
+	- complete: Type: Function( jqXHR jqXHR, String textStatus )
+		A function to be called when the request finishes  (after success and error callbacks are executed).
+		
+	- contentType (default: 'application/x-www-form-urlencoded; charset=UTF-8')
+		When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent). 
+		
+	
+
+33. Kiểm tra scroll tới cuối trang chưa:
+	- $(window).height() : 	Returns height of the browser window i.e browser viewport
+	- $(document).height() :	Returns height of HTML document
+	- $(window).scrollTop() :	Returns the current vertical position of the scroll bar	
+	
+	* Kiểm tra scroll tới cuối trang
+		// scrollTop: vị trí hiện tại
+		  if ($(window).scrollTop() == $(document).height() - $(window).height()) {//do something }
+	
+	
+34. Accordion trong jqueryUI:
+	Link: http://api.jqueryui.com/accordion/
+	http://csharp-video-tutorials.blogspot.com/2015/06/jquery-accordion-in-aspnet.html
+	
+	Ex: 
+	
+                       $('#accordian').html(htmlString).accordion({						   
+                           collapsible: true,
+                           active: 0
+                       })	
+		- collapsible: cho phép đóng tất cả các phần đang mở
+		- active: phẩn sẽ mở đầu tiên khi load
+		
+
+35. datePicker trong jQuery:
+	- Link: http://api.jqueryui.com/datepicker/#entry-examples
+	- DatePicker theo khu vực: https://github.com/jquery/jquery-ui/tree/master/ui/i18n
+	
+	Ex:
+		        $('#txtDate').datepicker({
+                    showOn: 'both',
+                    dateFormat: 'dd/mm/yy',
+                    changeMonth: true,
+                    changeYear: true
+                });
+	
+		+  showOn: hiển thị 3 dấu .(...)
+		+  changeMonth: true:  hiển thị month theo dạng DropdownList
+		
+	
+36. slider trong jquery:
+	Link: http://api.jqueryui.com/slider/#event-slide
+	Ex:
+		
+	 $(document).ready(function () {
+			var divElement = $('#myDiv');
+			$('#slider').slider({
+				min: 20,
+				max: 120,
+				orientation: 'horizontal',
+				slide: function (event, ui) {
+					divElement.css('font-size', ui.value + 'px');
+				}
+			});
+		});
+		
+			+ slide: triggered on every mouse move during slide .
+	+ Lấy ra value của slider:
+		Ex:  var height = $('#sliderHeight').slider('value');
+	
+	* Slider range: http://csharp-video-tutorials.blogspot.com/2015/06/jquery-range-slider.html
+	
+37. 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			-------------------------------------------------
+								Angular JS
+								
+							Link: https://angularjs.org/
+							
+1. 	Các khái niệm:
+	- ng-app: là nơi bạn muốn đánh dấu cho AngularJS biết ứng dụng sẽ bắt đầu từ đâu, thường thì nó nằm trong body tag.
+	- ng-controller: quản lý những model bên trong nó, ví dụ như name
+	- kí hiệu $scope: Kí hiệu $ được dùng để phân biệt thành phần do AngularJS tạo ra, như ng- namespace vậy. Việc $scope đc đưa vào controller là do dependency injection. Khi bạn dùng AngularJS với jQuery, $ sẽ được wrap bằng angular.element.
+	
+2. 	Ví dụ:
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+
+		<body>
+		<div ng-init="sessions=[
+		{title:'Javascrpt', author:'muni'},
+		{title:'Objective C', author:'Ritchie'},
+		{title:'C#', author:'Gosling'}
+		]">
+		</div>
+
+		<input type="text" ng-model="search.$" placeholder="Search ..."> <br/>
+		<table border="1">
+			<thead>
+			<tr>
+				<th> Title</th>
+				<th>Author</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="session in sessions | filter:search">
+				<td>
+					{{session.title | uppercase}}
+				</td>
+				<td>
+					{{session.author}}
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		</body>
+			
+			
+	
+3. 	Module, Controller là gì, cách đăng kí Controller vào Module:
+	* A module is a container for different parts of your application i.e controllers, services, directives, filters, etc
+	    - Cách tạo: Dùng đối tượng module() để tạo  module
+				var myApp = angular.module("myModule", [])
+		- Tham số:
+			+ param1: tên của module 
+			+ param2: xác định các phụ thuộc cho module này
+			
+		- Một module có thể phụ thuộc vào mo dule khác, nếu không thì để trống
+		
+		
+	* Controller: là một hàm javascript, để xây dựng model hiển thị kết quả cho View. Model là data.
+		- Syntax: 
+			var myController = function ($scope) {
+				$scope.message = "AngularJS Tutorial";
+			}	
+				
+			+ $scope là một tham số truyền vào controller function, chúng ta sẽ gán model vào cho $scope, sau đó hiển thị nó ra view.
+			
+			
+	* Các cách đăng kí Controller vào Module:
+		- Dùng module, gọi method controller(), truyền vào tên controller, gán controller function trong module
+		Ex: 
+			myApp.controller("myController", myController);
+	
+	
+	* Có thể viết lại như sau:
+		The above code can also be written as shown below
+			//Create the module
+			var myApp = angular.module("myModule", []);
+
+			// Creating the controller and registering with the module all done in one line.
+			myApp.controller("myController", function ($scope) {
+				$scope.message = "AngularJS Tutorial";
+			});
+
+
+4. 	ng-src directive:	
+	* ng-src attribute ensures that a request is issued only after AngularJS has evaluated the binding expression
+	Link : http://csharp-video-tutorials.blogspot.com/2015/11/angularjs-ng-src-directive.html
+	
+5. Two way databinding:
+	* Change the MODEL update the View	and vise versa Change the VIEW update the MODEL.
+	* Dùng directive 'ng-model'
+		Ex: 
+			  <input type="text" placeholder="Type your message here" ng-model="Car.Name" />
+			  <div>{{Car.Name}} </div>
+	
+
+6. ng-repeat tương tự foreach trong C#:
+	* Syntax:  ng-repeat="varible in collection"
+	- Ex: using ng-repeat directive which loops thru each employee in employees array
+		  <tr ng-repeat="employee in employees">
+                    <td> {{ employee.firstName }} </td>
+		  </tr>			
+		
+	* Tìm index trong tập hợp: 
+		+ Dùng  $index property
+		+ To get the index of the parent element
+			. Use $parent.$index or
+			. Use ng-init="parentIndex = $index"
+
+		Ex:	
+			 <ul ng-repeat="country in countries" ng-init="parentIndex = $index">
+				<li>
+					{{country.name}} - Index = {{ $index }}
+					<ul>
+						<li ng-repeat="city in country.cities">
+							{{city.name}} - Parent Index = {{ parentIndex }}, Index = {{ $index }}
+						</li>
+					</ul>
+				</li>
+			</ul>
+	
+	
+	
+7. 	Sử dụng ng-click:
+	- Tương tự onclick, nhưng ng-click dùng cho Angular.
+	Ex:    <input type="button" value="Like" ng-click="increaseLike(tech)" />
+	
+8. Angular filter: lọc dữ liệu
+	Filters in angular can do 3 different things
+	1. Format data
+	2. Sort data
+	3. Filter data
+		
+	Syntax : {{ expression | filterName:parameter }}
+	
+	* Format date:
+	- lowercase 
+	- uppercase
+	- number 
+	- currency 
+	- date 
+	
+	Ex:           <td>{{emp.dateOfBirth | date: "dd/MM/yyyy"}}</td> // hiển thị kiểu 01/12/2017
+				  <td>{{emp.salary | number: 2}}</td> // hiển thị dạng: 99, 99
+	
+	* Giới hạn số dòng hiển thị: Dùng limitTo
+		Syntax : {{ expression | limitTo : limit : begin}}	
+		Ex: 	   <tr ng-repeat="emp in employees | limitTo:rowLimit">
+					<td></td>
+				</tr>	
+		
+9. Angular Sort : sắp xếp
+	Syntax:     {{ orderBy_expression | orderBy : expression : reverse}}		
+	Ex: 		 ng-repeat="employee in employees | orderBy:'salary':false"
+		
+		- Để sắp tăng dần, dùng 'false', ngược lại 'true'
+		- Có thể dùng dấu + để sắp tăng dần, - để sắp giảm
+		Ex:  ng-repeat="employee in employees | orderBy:'+salary'"
+		
+	- Kết hợp lọc, sắp xếp dữ liệu:
+	Ex: ng-repeat="emp in employees | limitTo:rowLimit | orderBy: sortColumn"
+		
+10. Filter search trong Angular:
+	Syntax : {{ expression | filter: text}}	
+			
+	Ex:   
+	<input type="text" placeholder="Search employees" ng-model="searchText" />
+	<tr ng-repeat="employee in employees | filter:searchText">
+
+	- Nếu chỉ áp dụng search cho 1 cột cụ thể nào đó, tại ng-model, ta chỉ rõ cột cần áp dụng
+		Ex: <input type="text" ng-model="searchText.city" placeholder="Search employees" />
+		
+	link: 	http://csharp-video-tutorials.blogspot.com/2015/11/search-filter-in-angularjs.html
+		
+11. Custom filter:
+	http://csharp-video-tutorials.blogspot.com/2015/11/create-custom-filter-in-angularjs.html
+	
+	Ex:
+	
+		var app = angular
+        .module("myModule", [])
+        .filter("gender", function () {
+            return function (gender) {
+                switch (gender) {
+                    case 1:
+                        return "Male";
+                    case 2:
+                        return "Female";
+                    case 3:
+                        return "Not disclosed";
+                }
+            }
+        });
+		
+		
+
+12. Để show/hide cột trong Angular:
+	* ng-hide:
+		Ex: 
+		     <input type="checkbox" ng-model="hideSalary" />Hide Salary
+			 <th ng-hide="hideSalary">Salary</th>
+			
+	* ng-show:
+	
+	
+13. ng-init: 		
+	Link:  http://csharp-video-tutorials.blogspot.com/2015/11/angularjs-ng-init-directive.html     
+		
+	
+14. ng-include:
+	* Dùng để nhúng một Html page vào page Html khác, có ích khi taái sử dụng một view ở nhiều page khác nhau
+	* Giá trị của ng-include có thể là tên của 1 page Html, hay một property trong đối tượng $scope
+	
+		Ex:   <div ng-include="'EmployeeList.html'">
+			Or
+			       $scope.employeeView = "EmployeeTable.html";
+				   <div ng-include="employeeView"></div>
+				   
+	Link: http://csharp-video-tutorials.blogspot.com/2015/11/ng-include-directive-in-angularjs.html
+				   
+				   
+15. $http trong AngularJS
+	Link: http://csharp-video-tutorials.blogspot.com/2015/11/consuming-aspnet-web-service-in.html
+	Link2: https://docs.angularjs.org/api/ng/service/$http#usage	
+	Link3: https://www.w3schools.com/angular/angular_http.asp
+		
+	- $http service in Angular is used to make HTTP requests to remote server
+		Ex1:
+	
+			.controller('studentController',
+			function($scope, $http) {
+				$http.get('StudentService.asmx/GetStudent')
+					.then(function(response) {
+						$scope.students = response.data;
+					});
+			})
+		
+		Ex2: // truyền param cho web service
+			.controller('studentDetailsController', function ($scope, $routeParams, $http) {
+					$http({
+						url: 'StudentService.asmx/GetStudent',
+						method: 'get',
+						params: { id: $routeParams.id }
+					}).then(function (response) {
+						$scope.student = response.data;
+					});
+				});
+						
+		
+		
+16. Service trong AngularJS
+	* Service in Angular is simply an object that provide some sort of service that can be reused with in an angular application. The angular service object has properties and methods, just like any other JavaScript object. 
+		- Services can be used by controllers, directives and filters.
+		
+		Ex: Built in services : $http & $log service
+	
+17. Custom service:
+	Link: http://csharp-video-tutorials.blogspot.com/2015/11/create-custom-service-in-angularjs.html
+	
+	* factory method to create and register the service with Angular.
+		Ex: app.factory('stringService', function () {}
+		Ex:
+				angularFormsApp.factory('efService',
+				function () {
+					return {
+						employee: {
+							fullName: "Milton Waddams",						
+							payrollType: "none"
+						}
+					}
+				});			
+		
+		
+	
+18. $anchorscroll service :
+	Link: http://csharp-video-tutorials.blogspot.com/2016/01/angularjs-anchorscroll-example.html
+	
+	
+    * $anchorscroll service is used to jump to a specified element on the page
+    * phương thức hast() của $location service nối dấu '#' vào  URL
+    * $anchorscroll()đọc dấu '#' trong URL and jumps to that element on the page
+    * yOffset property specifies the vertical scroll-offset
+
+	Ex:
+	
+		 <button id="top" ng-click="scrollTo('bottom')">
+		 ......
+		   <button id="bottom" ng-click="scrollTo('top')">
+		 
+		
+19. Custom directive trong AngularJS:
+	Link: https://docs.angularjs.org/guide/directive
+	- AngularJS normalizes an element's tag and attribute name to determine which elements match which directives.
+	- The normalization process is as follows:
+		+ Strip x- and data- from the front of the element/attributes.
+		+ Convert the :, -, or _-delimited name to camelCase.
+		
+	- Like controllers, directives are registered on modules
+		Ex:
+			angular.module('docsSimpleDirective', [])
+			.controller('Controller', ['$scope', function($scope) {
+			  $scope.customer = {
+				name: 'Naomi',
+				address: '1600 Amphitheatre'
+			  };
+			}])
+			.directive('myCustomer', function() {
+			  return {
+				restrict: 'A',
+				template: 'Name: {{customer.name}} Address: {{customer.address}}'
+			  };
+			});
+			
+			HTML:		
+
+				<div ng-controller="Controller">
+				  <div my-customer></div>
+				</div>
+
+	-  When you create a directive, it is restricted to attribute and elements only by default. In order to create directives that are triggered by class name, you need to use the restrict option. 
+		+ The restrict option is typically set to:
+			+ 'A' - only matches attribute name
+				Ex:  ' <div my-customer></div>'
+			+ 'E' - only matches element name
+				Ex: <my-customer> </my-customer>
+			+ 'C' - only matches class name
+				Ex:  '<div class="my-Customer">  </div>'
+			+ 'M' - only matches comment		
+		
+
+20. ng-options:
+	* Fill options in a dropdown list by using the items of an array.
+		- Link: http://www.w3schools.com/angular/ng_ng-options.asp
+			Ex: <select ng-model="selectedName" ng-options="item for item in names"></select>
+			
+		- The ng-options directive fills a <select> element with <options>.
+		- The ng-options directive uses an array to fill the dropdown list	
+	
+	* Syntax:   <select ng-options="array expression"></select>
+		array expression:
+			- label for value in array
+				Ex: dept for dept  in departments
+			- select as label for value in array
+				Ex: dept as dept for dept  in departments
+
+21. ng-route:
+	Link: https://docs.angularjs.org/api/ngRoute/provider/$routeProvider
+	
+	* ngRoute module routes your application to different pages without reloading the entire application
+	1. Add  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	2. add the ngRoute as a dependency in the application module:
+		var app = angular.module("myApp", ["ngRoute"]);
+	
+	3. Use the $routeProvider to configure different routes in your application:
+		Ex:
+			var app = angular.module("myApp", ["ngRoute"]);
+			app.config(function($routeProvider) {
+				$routeProvider
+				.when("/", {
+					templateUrl : "main.htm",
+					controller : "londonCtrl"
+				})
+				.when("/london", {
+					templateUrl : "london.htm"
+				}) 
+				.otherwise({
+					 redirectTo: '/'
+					//template : "<h1>None</h1><p>Nothing has been selected</p>"
+					});
+				
+			});
+
+		- otherwise method, which is the default route when none of the others get a match.
+
+
+22. angular.copy :
+	Link: https://docs.angularjs.org/api/ng/function/angular.copy
+	* Creates a deep copy of source, which should be an object or an array.
+	Syntax: angular.copy(source, [destination]);
+	Ex:    $scope.editedEmployee = angular.copy($scope.employee);
+	
+
+23. sử dụng $routeParams:
+	* The $routeParams service allows you to retrieve the current set of route parameters.	
+	Link: https://docs.angularjs.org/api/ngRoute/service/$routeParams
+	
+	* các bước dùng:
+	- thêm id vào trong path
+		Ex: 	  $scope.showUpdateEmployeeForm = function (id) {
+					$location.path('/updateEmployeeForm/' + id);
+					};
+	- đường dẫn khi dùng when trong routeProvider:
+		Ex:
+			  .when("/updateEmployeeForm/:id", {
+				 templateUrl: "app/EmployeeForm/efTemplate.html",
+				 controller: "efController"
+			 })
+
+	- lấy ra param id: Truyền vào controller service $routeParams:
+		+ lấy ra id từ route: $routeParams.id.
+		
+		Ex:
+				 .controller('studentDetailsController', function ($scope, $routeParams, $http) {
+					$http({
+						url: 'StudentService.asmx/GetStudent',
+						method: 'get',
+						// truyền id vào cho web service
+						params: { id: $routeParams.id }
+					}).then(function (response) {
+						$scope.student = response.data;
+					});
+				});
+			
+		
+24. 	 localtion service:
+	Link: https://docs.angularjs.org/api/ng/service/$location
+	* The $location service parses the URL in the browser address bar (based on the window.location) and makes the URL available to your application. Changes to the URL in the address bar are reflected into $location service and changes to $location are reflected into the browser address bar.
+	
+	- Lấy ra url:
+		Ex: 
+			// given URL http://example.com/#/some/path?foo=bar&baz=xoxo
+			var url = $location.url();
+			// => "/some/path?foo=bar&baz=xoxo"
+	- phương thức path():
+			// given URL http://example.com/#/some/path?foo=bar&baz=xoxo
+			var path = $location.path();
+			// => "/some/path"
+					
+25. dùng datePicker trong Angular:
+	- thêm value vào trong model
+	- ở mã html dùng:
+		 <datepicker name="dateHired" ng-model="editableEmployee.dateHired">
+         </datepicker>
+
+	* Link: https://angular-ui.github.io/bootstrap/#!#datepicker
+	
+
+26. Sử dụng typeahead AngularJS:
+	* Link: https://angular-ui.github.io/bootstrap/#!#typeahead
+	- Tạo 1 model trong controller
+		Ex:
+			   $scope.languages = [
+				"C#",
+				"C++",
+				];
+	- Gọi typeahead ở mã html:
+		Ex:
+			<input type="text" id="topLanguage" name="topLanguages" class="form-control" ng-model="editableEmployee.topLanguage" typeahead="lan for lan in languages | filter:$viewValue"/>
+
+
+27.  Lấy dữ liệu khi 2 controller lồng nhau, kiểu cha con:
+	link: http://csharp-video-tutorials.blogspot.com/2016/03/angular-nested-scopes-and-controller-as.html
+	Ex:
+		  <div ng-controller="stateController">
+            {{name}}
+            <div ng-controller="cityController">
+               {{$parent.name}} - {{name}}
+            </div>
+		   </div>
+		   
+		 => Ta dùng $parent để lấy dữ liệu của controller cha.
+
+	Ex2: sử dụng 'controller as'
+		http://csharp-video-tutorials.blogspot.com/2016/03/angularjs-controller-as-syntax.html
+	
+28. Sử dụng caseInsentitiveMatch trong Route:
+	- Mặc định khi trỏ đến các link:
+		+ http://localhost:51983/home
+		+ http://localhost:51983/HOME
+		nó sẽ khác nhau
+		
+	* Để loại bỏ trường hợp này trong routeProvider ta đặt     caseInsensitiveMatch: true, 2 link sẽ trỏ về cùng 1 nguồn
+	
+29. route() method:
+	- chỉ muốn một phần của route hiện tại nhận phản hồi từ máy chủ
+	- Thực hiện:
+		+ thêm $route service vào trong tham số của controller
+		+ tạo function:
+			 $scope.reloadData = function () {
+                $route.reload();
+				}
+		+ gọi tại nơi cần gọi
+	
+
+30. Ngăn chặn khi navigate đến 1 link khác:
+		   $scope.$on("$locationChangeStart",
+                function(event, next, current) {s
+                    if (!confirm("Are you sure you want to navigate away from this page to " + next)) {
+                        event.preventDefault();
+                    }
+                });
+				
+			 Link: http://csharp-video-tutorials.blogspot.com/2016/03/angularjs-cancel-route-change.html
+
+
+31. Sử dụng ngResource:
+	https://docs.angularjs.org/api/ngResource/service/$resource
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+Từ vựng:
+- pairs: cặp Ex: The name:values pairs :cặp tên: giá trị
+- NaN (Not a Number)
+- concatenate: nối tiếp nhau.
+- dictate: ra lệnh
+	

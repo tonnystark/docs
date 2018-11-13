@@ -1,0 +1,801 @@
+﻿1.RenderBody() ở trang _Layout.cshtml dùng để render một phần nội dung trong body nào đó.
+2. Render một section, dùng:
+   @RenderSection("<tên section>", false)
+   - true: bắt buộc, ngược lại false
+ 3. Để  render phần 'partial view' dùng: RenderPage('tên', tên model)	
+	    Ex: @RenderPage("_LeftMenu.cshtml", Model);
+4. Sữa lỗi 'Multiple types were found that match the controller named 'Home'' :
+	Do khi chúng ta thêm Areas, chúng ta có cùng Controller name trong Areas và thư mục gốc.
+	Vd:	
+    ~/Controllers/HomeController.cs
+    ~/Areas/Admin/Controllers/HomeController.cs
+	
+	Để khắc phục:
+	- Trong RouteConfig ở App_Start, thêm  namespaces:  new[] {"MyNamespace.Controllers"} (mynamspace: tên namespace của mình).
+		 routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "P2.ASP_MVC_EX1.Controllers" }
+	- Trong Areas, ở class AdminAreaRegistration, thêm:  new[] { "MyNamespace.Areas.Admin.Controllers" }
+		context.MapRoute(
+                "Admin_default",
+                "Admin/{controller}/{action}/{id}",
+                new { action = "Index", controller = "Home", id = UrlParameter.Optional },
+                new[] { "P2.ASP_MVC_EX1.Areas.Admin.Controllers" }
+            );
+			
+5. ViewData(): Truyền thông tin qua lại giữa View & Controller
+- ViewData có thể chứa bất kì thông tin nào như String, object, file database
+- Khi dùng ViewData phải ép về kiểu mong muốn, khi chứa dữ liệu, ViewData tự gán nó về kiểu Object.
+	Ex: ViewData["mystring"] = "Hello";
+
+6. Sửa lỗi 	"The model backing the 'PropertyContext' context has changed since the database was created."
+	Link: 
+		http://stackoverflow.com/questions/21852121/the-model-backing-the-context-context-has-changed-since-the-database-was-cre
+	- Thêm vào hàm Application_Start() trong Global.asax.cs ở thư mục gốc dòng:
+		  Database.SetInitializer<tên_Context>(null);
+		  
+7. Mỗi Razor có: @Html. ...
+8. attribute [Serializable]:
+- chuyển đổi một cấu trúc dữ liệu hoặc đối tượng thành một định dạng có thể lưu trữ được 
+- Công dụng của Serialize là bạn có thể lưu giữ lại được đối tượng thành dữ liệu để lưu vào file hoặc truyền qua mạng. Sau đó, bạn có thể deserialize dữ liệu để lấy lại được đối tượng đó.
+
+9. Plugin hỗ trợ phân trang: PagedList.Mvc
+	- Để phân trang ta thêm method PagedListPager, trước khi gọi phải @using PagedList.Mvc; ở đầu.
+	Ex:     
+		@Html.PagedListPager(Model, page => Url.Action("Index", new {page, strSearch = @ViewBag.strSearch }} ))
+		trong đó: Index là ActionName
+					+ strSearch = @ViewBag.strSearch : lấy giá trị từ ViewBag để phân trang dựa trên ô tìm kiếm
+
+	- Lưu ý: Cần phải Order By trước khi dùng .ToPageList().
+	Ex:   public IEnumerable<User> GetAllUserPagging(int page, int pageSize)
+        {
+            return db.Users.OrderBy(u => u.UserName).ToPagedList(page, pageSize);
+        }
+9. Khi tìm một User bởi khóa chính thì nên dùng method Find().
+	Ex: 	 public User FindUserById(long id)
+			{
+				return db.Users.Find(id);
+			}
+
+10. Lỗi not found đường dẫn khi xóa, ta phải cài thêm nudget: Microsoft.jQuery.Unobtrusive.Ajax. Và add vào page
+
+11. Tạo một ô Search trong Web:
+	- Sử dụng Form  @using (Html.BeginForm("Index", "User", FormMethod.Get))
+		+     <input type="text" name="strSearch" value= "@ViewBag.strSearch"/>
+				. value: sẽ lấy giá trị điền vào ô search
+	- Do method của Form là Get, nó sẽ tự động tạo một queryString.
+	- Trong Action Index thêm vào tham số 'strSearch', tên tham số phải trùng với 'name' trong input :  
+		public ActionResult Index(string strSearch) {//}
+	- Để lưu lại chuỗi vừa Search, trong Action index, thêm    "ViewBag.strSearch = strSearch;"
+	
+12. Plugin CkFinder hỗ trợ một số việc quản lí như: quản lí ảnh..
+	- Link: https://cksource.com/ckfinder/download 
+		Nên chọn version 2.xx
+	- Sử dụng: 
+		+ Giải nén, Include thư mục vào trong Project	
+		+ Add reference 'CKFinder.dll' trong thư mục 'Bin' vào Project.
+		+ Xóa 'CKFinder.dll' trong thưc mục include, xóa folder Source để tránh đụng độ
+		+ Add 'ckfinder.js' vào cuối trang Layout của Project.
+		+ Add session  @RenderSection("jsFooter", required:false) vào trang Layout để Render Script
+		+ Add vào tên Session cần Render vào đầu trang:  @section jsFooter{ // các lệnh Script  }  
+		+ Tại mục 'config.ascx' trong 'ckfinder' tiến hành chỉnh sửa:
+			- Trong method CheckAuthentication(), ta return Session hiện tại, kiểm tra nếu khác Null thì cấp phép truy cập.	
+				Ex:  return Session["USER_SESSION"] != null;
+	Ex: Quản lí ảnh
+		1. 
+		  <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Image, new { htmlAttributes = new { @class = "form-control"}, id="txtImg"  })
+                <a id="btnImg" href="#">Chọn ảnh</a>
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+		 </div>
+		 
+		- "Thêm id txtImg vào cái textbox"
+		- "Tạo 1 thẻ a có id btnImg, sự kiện khi click href bị disable".
+			Các disable link khi click: Thêm dòng    e.preventDefault(); vào trong Script.
+		
+		2. Viết Jquery
+						<script>
+							$(document).ready(function () {
+							$('#btnImg').on('click', function (e) { // "- truyền e vào đây để cho việc ngăn Link bị chuyển khi Click"
+								e.preventDefault(); //"Ngăn link chuyển đi"
+								var finder = new CKFinder();
+								finder.selectActionFunction = function (url) {
+									$('#txtImg').val(url);
+								};
+								finder.popup();
+							});
+						});
+						</script>
+						
+13. Plugin CkEditor					
+	-  Sử dụng: 
+	  + Add 'ckeditor.js' vào cuối trang Layout của Project.
+	  + Mở file config.js chình sửa Function CKEDITOR.editorConfig = function( config )  như sau:
+			config.syntaxhighlight_lang = 'csharp';
+			config.syntaxhighlight_hideControls = true;
+			config.language = 'vi';
+			config.filebrowserBrowseUrl = '/Assets/admin/js/plugins/ckfinder/ckfinder.html';
+			config.filebrowserImageBrowseUrl = '/Assets/admin/js/plugins/ckfinder.html?Type=Images';
+			config.filebrowserFlashBrowseUrl = '/Assets/admin/js/plugins/ckfinder.html?Type=Flash';
+			config.filebrowserUploadUrl = '/Assets/admin/js/plugins/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files';
+			config.filebrowserImageUploadUrl = '/Data';
+			config.filebrowserFlashUploadUrl = '/Assets/admin/js/plugins/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash';
+
+			// trỏ từ thư mục 
+			CKFinder.setupCKEditor(null, '/Assets/admin/js/plugins/ckfinder/');
+			  
+			* Các đường dẫn tùy theo Project, ở cuối phải config trỏ sang thư mục của 'ckfinder'
+	
+		+ Thay EditorFor cần áp dụng 'ckeditor' bằng TextAreaFor, đặt id cho nó.
+		+ Trong Script ở đầu, thêm dòng:
+			  var editor = CKEDITOR.replace('txtContent', {
+            customConfig: "/Assets/admin/js/plugins/ckeditor/config.js",
+			});
+			* txtContent: chính là id của TextAreaFor.
+			* customConfig: chính là file config.
+			
+14. Ajax trong MVC:
+15. Sử dụng các Render:
+	- RenderBody():
+		Sử dụng khi tạo 1 trang kế thừa từ trang Layout(có sử dụng Layout).
+	- RenderSection("tênSection", true/false):
+		Sử dụng khi ta tạo 1 section chứa các nội dung, có thể ở trang kế thừa từ Layout, hay ngay trang Layout.
+		- Cách dùng: 
+		khai báo @section <tên section>
+							{ 
+								//nội dung
+							}
+		Ex: section menu{
+			//...
+		}
+	- RenderAction("actioName",  "ControlerName"):
+		Sử dụng để chạy một action trong 1 controller và render 1 partial view nào đó.
+		Ex:   @{Html.RenderAction("TopMenu", "Home");} // bắt buộc phải trong {} và có dấu ;
+		- Khai báo ActionName của nó, phải đặt thuộc tính   [ChildActionOnly] để chỉ ra Action này chỉ nên chạy trong partial //.
+			Ex:
+			"
+				[ChildActionOnly]
+				public ActionResult Footer()
+				{
+					var model = new FooterDAO().GetFooter();
+					return PartialView(model);
+				}"
+			
+			
+		- Tạo 1 partial view cho nó:
+			+ Trong này ta khai báo model:
+				
+				Ex: @model List<Model.EF.Menu> (*)
+				- Khi chạy lệnh ta sẽ dùng thuộc tính Model đại diện cho cái (*) khai báo ở trên
+				Ex:  "@foreach (var item in Model) // Model ở đây chính là (*)
+					{
+						<li><a href="@item.Link" target="@item.Target">@item.Text</a></li>
+					} "   
+					
+			+ Nếu trong Action chỉ trả về nội dung HTML thì ở phần partial view, ta sẽ dùng phương thức @Html.Raw(...) để trả về chuỗi Html nguyên gốc.
+			Ex: @model Model.EF.Footer
+				@Html.Raw(Model.Content)
+
+16. Sử dụng ViewBag: 
+	- Để chứa dữ liệu, sẽ đặt ViewBag trong Action.
+		Ex:  ViewBag.Slides = new SlideDAO().ListAllSlide();
+	- Khi gọi nó trong View	, ta sẽ phải ép kiểu lại cho nó như kiểu đã khai báo ban đầu.
+		Ex: 
+	    var slides = (List<Model.EF.Slide>)ViewBag.Slides;
+	  
+	  
+17. Cài đặt Router để định hướng, tạo URL cho page :
+	- Trong RouteConfig, ta thêm các 'routes.MapRoute':
+	Ex:
+		 routes.MapRoute(
+                name: "Product Category",
+                url: "san-pham/{metatitle}-{id}",
+                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
+               namespaces: new[] { "UnniBoot.Controllers" }
+            );
+		=> Ở dòng Url: 'san-pham//' là link ta đã tạo khi bind dữ liệu từ DB, có 2 tham số 'metatitle}-{id}', đặc biệt chứ ý đến {id}, tên tham số này phải trùng với tên tham số trong Controller ta truyền vào.
+		- Dòng defaults: gồm Controller và Action.
+	- Nếu chưa có Action hay Controller, ta sẽ tạo mới và truyền vào, ở Action sẽ gọi đến các View tương ứng.
+	
+	
+18. Về PartialView:
+	- Khi tạo 1 method trả về PartialView trong Controller thì 'tên' của method đó phải trùng với tên của PartialView ở ngoài.
+	Ex: public PartialViewResult MyPView()
+		{}
+		=> PartialView có tên tương ứng: MyPView
+		
+19. Cấu hình gửi mail:
+	1. Vào Web.Config, trong thẻ <appSetting> tạo các key
+	Ex:   
+		<add key="FromMail" value="txx@gmail.com"></add>
+		<add key="DisplayName" value="Đơn hàng mới"></add>
+		<add key="FromPass" value=""></add>
+		<add key="SMTP" value="smtp.gmail.com"></add>
+		<add key="Port" value="587"></add>
+		<add key="EnabledSSL" value="true"></add>
+		<add key="ToEmail" value="txxx1996@gmail.com"></add>
+			
+	2. Tạo class MailHelper để gửi mail:	
+		Ex:
+			// lấy ra giá trị từ web.config
+			// cần add reference System.Configuration
+			var fromEmailAddress = ConfigurationManager.AppSettings["FromMail"].ToString();
+		
+			string body = content; // "body này sẽ tự tạo"
+            MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(toEmailAddress));
+            message.Subject = subject;
+            message.IsBodyHtml = true;
+            message.Body = body;
+
+            var client = new SmtpClient();
+            client.Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword);
+            client.Host = smtpHost;
+            client.EnableSsl = enabledSsl;
+            client.Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0;
+            client.Send(message);
+		
+	 3. Tạo 1 template có cấu trúc sẽ gửi:
+	  Ex:
+		<body>
+		Điện thoại: {{Phone}} <br />
+		Email: {{Email}}<br />
+		Địa chỉ: {{Address}}<br />
+		Trị giá: {{Total}}<br />
+		</body>
+		
+		* Các mục {{Total}}: dùng như 1 biến để thay thế giá trị truyền vào
+	
+	4. Gọi hàm gửi mail:
+		-   Để lấy ra content của trang  template đã tạo ở b3 dùng: 
+                string content = System.IO.File.ReadAllText(Server.MapPath("~/địa chỉ lưu template"));
+		- Thay thế các giá trị bằng cách dùng "Replace" những chỗ có kí hiệu {{}}
+				string mobile = "1212121";
+				// thay đổi lại các giá trị cho nó
+                content = content.Replace("{{Phone}}", mobile);
+		- Tiến hành gửi
+			 new MailHelper().SendMail(toEmail, "Đơn hàng mới", content);
+	  
+
+20. Tích hợp Google Map API :
+	- Vào https://developers.google.com/
+	- Add script:
+		 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaS"></script>
+		 * key: tự tạo
+		 
+	...
+21. Cài đặt Captcha:
+	Link hướng dẫn:
+	https://captcha.com/doc/aspnet/asp.net-mvc-captcha-quickstart.html
+	  
+	  
+22. Mã hóa MD5 cho PassWord:
+	- Tạo Class Encryptor như sau:
+		  public static string MD5Hash(string text)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+
+            // compute hast
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+
+            //get hash
+            byte[] result = md5.Hash;
+
+            StringBuilder strBuild = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                // change it into 2 hexa digit
+                strBuild.Append(result[i].ToString("x2"));
+            }
+
+            return strBuild.ToString();
+        }
+	
+23. Facebook Login :
+	- Tạo 1 app trên fb
+	- Lấy Id của app và SecretID
+	- Thêm Nudget Facebook
+	- Tạo 1 link có nút Login, trỏ tới link trong route
+	- Tạo 1 route ứng với Link vừa tạo
+	- Các hàm giúp đăng nhập với facebook :
+	
+        #region Login facebook
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
+
+        public ActionResult LoginFacebook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["fbID"],
+                client_secret = ConfigurationManager.AppSettings["fbSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email"
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+        }
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["fbID"],
+                client_secret = ConfigurationManager.AppSettings["fbSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });
+
+            var accessToken = result.access_token;
+            if (!String.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+
+                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
+                string email = me.email;
+                string firstname = me.first_name;
+                string middlename = me.middle_name;
+                string lastname = me.last_name;
+
+                var user = new User();
+                user.Email = email;
+                user.UserName = email;
+                user.Status = true;
+                user.Name = firstname + middlename + lastname;
+                user.CreatedDate = DateTime.Now;
+
+                var insertId = new UserDAO().InsertForFacebook(user);
+                if (insertId > 0)
+                {
+                    // gán giá trị từ user vừa tìm đc vào session
+                    var userSession = new UserLogin();
+                    userSession.UserName = user.UserName;
+                    userSession.UserID = user.ID;
+
+                    Session[CommonConstant.USER_SESSION] = userSession;
+                }
+            }
+            return Redirect("/");
+        }
+        #endregion
+		
+24. Tích hợp đa ngôn ngữ:
+25. Load file XML quận/ huyện:
+	- Tạo 1 model của quận/ huyện...
+	- Tạo 1 dropdownList bên trang đăng kí,..
+		Ex: 
+		 <div class="form-group">
+                @Html.LabelFor(model => model.ProvinceID, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.ProvinceID, new SelectList(new string[] { }), new { @class = "form-control", @id = "ddlProvince" })
+                    @Html.ValidationMessageFor(model => model.ProvinceID, "", new { @class = "text-danger" })
+                </div>
+        </div>
+	- Tạo 1 Action trong Controller, lấy nội dung từ XML, thêm vào 1 list và trả về 1 Json Result
+		Ex: 
+			  public JsonResult LoadProvince()
+        {
+            // lấy ra nội dung xml
+            var xmlDoc = XDocument.Load(Server.MapPath(@"~\Assets\client\data\Provinces_Data.xml"));
+            // lấy ra các phần tử có giá trị của attribute là province
+            var xElements = xmlDoc.Descendants("Item").Where(x => x.Attribute("type").Value == "province");
+
+            var lstProvince = new List<ProvinceModel>();
+            foreach (var item in xElements)
+            {
+                ProvinceModel p = new ProvinceModel();
+                p.ID = int.Parse(item.Attribute("id").Value);
+                p.Name = item.Attribute("value").Value;
+
+                lstProvince.Add(p);
+            }
+
+            return Json(new
+            {
+                // trả về 1 data chứa ds các tỉnh thành
+                data = lstProvince,
+                status = true
+            });
+        }
+	- Tạo 1 file ajax sẽ gọi  đến các Controller khi có yêu cầu
+		Ex:
+		// Khi chọn province item từ dropdownList sẽ kích hoạt hàm loadDistrict
+		 registerEvent:function(){
+        $('#ddlProvince').off('change').on('change', function () {
+            var id = $(this).val();
+            if (id != '') {
+                user.loadDistrict(id);
+            }
+            else
+            {
+                $('#ddlDistrict').html('');
+            }
+        });
+		
+		// Load ra các District
+			loadDistrict: function (provinceID) {
+        $.ajax({
+			// Tên Controller/ ActionName
+            url: '/User/LoadDistrict',
+            type: "POST",
+            dataType: "json",
+            // truyền tham số vào cho hàm ở Controller
+            data:{provinceID: provinceID},
+            success: function (res) {
+                var html = "<option>Chọn quận huyện</option>";
+                if (res.status == true) {
+                    // danh sách các tỉnh thành trả về từ server
+                    var data = res.data;
+                    $.each(data, function (i, item) {
+                        html += '<option value="' + item.ID + '" >' + item.Name + "</option>";
+                    });
+                    $('#ddlDistrict').html(html);
+                }
+            }
+        });  }
+26. Sử dụng OutputCache:
+	* Bình thường, nếu có attribute ChildActionOnly:	
+		[OutputCache(Location = System.Web.UI.OutputCacheLocation.Client)]
+	
+	* Sử dụng Cache Profile:
+		- Cấu hình cache trong web.config, đặt cặp thẻ <caching> trong  <system.web>: 
+		Ex: 
+			  <caching>
+			  <outputCacheSettings>
+				<outputCacheProfiles>
+				  <add name="Cache1Hour" duration="3600" varyByParam="none"/>
+				</outputCacheProfiles>
+			  </outputCacheSettings>
+			</caching>
+			
+		- Gọi lại ở Action cần Cache:
+		 [OutputCache(CacheProfile = "Cache1Hour")]
+	  
+
+27. Tạo autocomplete trong ô Search :
+	1) Vào https://jqueryui.com/autocomplete/#custom-data
+		Tải về các thư viện cần thiết
+		- http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css
+		- https://code.jquery.com/ui/1.12.1/jquery-ui.js
+		
+	2) Đặt action="/tim-kiem",  method="get", name="keyword" cho form tìm kiếm. 
+	- "name" giúp nối giá trị trong textbox.
+		Ex: 
+			 <div class="search_box">
+                    <form action="/tim-kiem" method="get">
+                        <input type="text" id="txtSearch" placeholder="tìm kiếm" name="keyword"><input type="submit" value="">
+                    </form>
+             </div>
+	3) Viết hàm javascript như sau:
+		var common = {
+				intit: function () {
+					common.registerEvent();
+				},
+				registerEvent: function () {
+					$("#txtSearch").autocomplete({
+						minLength: 0,
+						source: function (request, response) {
+							$.ajax({
+								url: "/Product/ListName",
+								dataType: "json",
+								data: {
+									keyword: request.term
+								},
+								success: function (data) {
+									response(data.data);
+								}
+							});
+						},
+						focus: function (event, ui) {
+							$("#txtSearch").val(ui.item.label);
+							return false;
+						},
+						select: function (event, ui) {
+							$("#txtSearch").val(ui.item.label);
+							return false;
+						}
+					})
+						.autocomplete("instance")._renderItem = function (ul, item) {
+							return $("<li>")
+							  .append("<a>" + item.label + "</a>")
+							  .appendTo(ul);
+						};
+				}
+			}
+			common.intit();
+		
+
+28. Sửa lỗi "A potentially dangerous Request.Form value was detected from the client"
+	- Thêm vào thuộc tính ở Action:
+		[HttpPost, ValidateInput(false)]
+		public ActionResult Edit(FormCollection collection)
+		{
+			// ...
+		}
+29. Phân quyền trong MVC :
+	1) Tạo các GroupUser, Role(quyền) trong DB
+	2) Thực hiện kiểm tra trong hàm Login, có chứa GroupID là Mod hay Admin => đăng nhập, ngược lại báo "Tài khoản chưa cấp quyền".
+	3) Viết class kiểm tra quyền, kế thừa từ một Attribute: AuthorizeAttribute, với các RoleID(quyền thêm, xóa..)
+		 public class HasCredentialAttribute : AuthorizeAttribute
+		{
+			// quyền của user
+			public string RoleID { get; set; }
+			protected override bool AuthorizeCore(HttpContextBase httpContext)
+			{
+				// lấy ra user hiện tại
+				var session = (UserLogin)HttpContext.Current.Session[Common.CommonConstant.USER_SESSION];
+				if (session == null)
+					return false;
+
+				// xét quyền đăng nhập
+				List<String> privilegeLevels = GetCredentialByLoggedInUser(session.UserName);
+
+				// nếu chứa RoleID hoặc  có quyền Admin
+				if (privilegeLevels.Contains(RoleID) || session.GroupID == CommonConstant.ADMIN_GROUP)
+				{
+					// cấp quyền
+					return true;
+				}
+				return false; // hủy
+			}
+
+			List<String> GetCredentialByLoggedInUser(string userName)
+			{
+				var credentials = (List<String>)HttpContext.Current.Session[Common.CommonConstant.SESSION_CREDENTIALS];
+				return credentials;
+			}
+			// xử lí trang 401 khi không có quyền
+			protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+			{
+				filterContext.Result = new ViewResult
+				{
+					ViewName = "~/Areas/Admin/Views/Shared/401.cshtml"
+				};
+			}
+		}
+	4) Gọi lại Attribute, với các RoleID cho các Action:
+		Ex: 
+		   [HasCredential(RoleID = "VIEW_CONTENT")]
+			public ActionResult Index(string strSearch, int page = 1, int pageSize = 5)
+			{
+				//...
+			}
+	
+
+	
+30. Tối ưu performance trong MVC:
+	1) Vào BundleConfig.cs
+	2) Tiến hành include các file trong   "bundles.Add"
+	Ex:
+		  bundles.Add(new ScriptBundle("~/js/jquery").Include("~/Assets/client/js/jquery.min.js"));
+		  + Đối với Css, ta thêm new CssRewriteUrlTransform()
+		   bundles.Add(new StyleBundle("~/css/base")
+               .Include("~/Assets/client/css/bootstrap.css", new CssRewriteUrlTransform()));
+		
+		
+	3) Bật BundleTable.EnableOptimizations = true;
+	4) Trong trang layout, tiến hành Render bắng cách gọị, tùy theo từng tên :
+	Ex:
+		+ css:   @Styles.Render("~/bundles/coreCSS");
+		+ script: @Scripts.Render("~/bundles/coreJS");
+		
+	Link: https://www.asp.net/mvc/overview/performance/bundling-and-minification	
+
+31. Trang tạo các nút chia sẻ, theo dõi:	
+	Link: https://www.addthis.com/dashboard#tool-config/pub/ra-57f608079dc8cace
+
+32. Tạo sitemap google
+	Link: https://www.xml-sitemaps.com/
+33. Để hiển thị các textbox với độ rộng vừa phải, ta XÓA  thuộc tính "new  htmlAttributes" trong mỗi control tương ứng.
+
+34. Sửa lỗi "There is no ViewData item of type 'IEnumerable<SelectListItem>" khi dùng DropDownListFor:
+	- Thêm "new SelectList(new string[] { })" vào làm tham số.
+	EX:   @Html.DropDownListFor(model => model.CategoryID, new SelectList(new string[] { }), new { @class = "form-control"  })
+		
+35. Gọi một Action Link trực tiếp từ Ajax:
+
+	//  @Ajax.ActionLink("tên link", "Tên Action", "tham số", ...)
+	 @Ajax.ActionLink("Xóa", "DeleteProduct", new { @id = item.ID }, new AjaxOptions
+                                       {
+                                           Confirm = "Bạn có muốn xóa sản phẩm này?",
+                                           OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                           HttpMethod = "Delete"
+                                       })
+36. ViewBag không phân biệt hoa thường
+37. Xử lí kiểu nullable:
+	- Ex: public int MethodA(int id) {//...}
+		public MethodB(int? id) //nullable tại đây
+		{
+			int x = MethodA(id); //lỗi
+			//"Ta xử lí bằng cách ép kiểu nullable về (int)".
+			//"int x = MethodA((int)id);"
+		}
+38. Truyền dữ liệu qua url:
+	1. Dùng ActionLink(tên, "Action Name", value), nội dung link hiển thị là param đầu
+		Ex: @Html.ActionLink(@item.DisplayText, "Detail", new { id = @item.ID })
+	2. Dùng @Url.Action("ActionName", "ControlerName", value), bắt buộc có thẻ <a>, nội dung link trong <a>
+		Ex:   <a href="@Url.Action("Detail", "ComicBooks", new {id = item.ID})"> //my link </a>
+	 
+39. Ý nghĩa của dấu '_' trước các "partial view":
+	Ex: "_Header, _Footer":
+	- Nó sẽ không gửi trang đến browser nếu có dấu '_' ở trước tên, ngăn chặn user request đến những trang này.
+	
+40. Thuộc tính [ValidateAntiForgeryToken]	để chống sự giả mạo khi Create, hay Post thông tin.
+	Xem thêm tại: http://blog.stevensanderson.com/2008/09/01/prevent-cross-site-request-forgery-csrf-using-aspnet-mvcs-antiforgerytoken-helper/
+	 
+50. Ajax.BeginForm() tương tự như dùng Html.BeginForm nhưng:
+		Chỉ update một phần nào đó trong page
+	* Ajax.BeginForm("actionName", "controller",  new AjaxOptions() { UpdateTargetId = "" }) 
+		{
+			
+		}	
+		
+		- UpdateTargetId: vùng cần update
+		
+	Link: http://www.c-sharpcorner.com/uploadfile/0c1bb2/ajax-beginform-in-asp-net-mvc-5/
+
+
+51.  Sử dụng DatePicker:
+	Link: https://bootstrap-datepicker.readthedocs.io/en/latest/
+	1. Đặt file css, script trong Layout
+	2. Gọi script:
+		   <script>
+				$('input.datepicker').datepicker({
+					format: 'dd/MM/yyyy'
+				});
+			</script>
+
+52. Sử dụng jQuery validation Plugin:
+	Link: https://jqueryvalidation.org/documentation/
+	1. Vào Package manager Add:
+		+ jQuery validation
+		+ jQuery Unobtrusive.
+	2. Thêm các scipt vào layout:
+		    <script src="~/Scripts/jquery.validate.min.js"></script>
+			<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+	3. Add 2 key vào  appSetting strong Web.config:
+		  <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+		  <add key="ClientValidationEnabled" value="true"/>
+	4. Đặt 	 @Html.ValidationSummary("Một số thông tin không hợp lệ: ", new { @class = "alert alert-danger" }) trong BeginForm.
+	
+	
+	* Thêm file .js hiển thị kết quả đúng sai để báo hiệu:
+		1. Tạo 1 file script js chứa:
+		
+				(function ($) {
+			var defaultOptions = {
+				validClass: 'has-success',
+				errorClass: 'has-error',
+				highlight: function (element, errorClass, validClass) {
+					$(element).closest('.form-group')
+						.removeClass(validClass)
+						.addClass(errorClass);
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$(element).closest('.form-group')
+						.removeClass(errorClass)
+						.addClass(validClass);
+				}
+			};
+
+			$.validator.setDefaults(defaultOptions);
+
+			$.validator.unobtrusive.options = {
+				errorClass: defaultOptions.errorClass,
+				validClass: defaultOptions.validClass,
+			};
+			})(jQuery);
+			 
+			 
+		2. Thêm script vào Layout
+	
+
+	
+	
+53.	Khi nào dùng ViewBag, ViewData, TempData
+	http://codehay365.com/phan-biet-viewbag-viewdata-tempdata-trong-asp-net-mvc/
+	
+   *  Giống nhau về cách sử dụng của ViewBag và ViewData:
+        Giúp bạn có thể chuyển dữ liệu từ Controller xuống View
+        Truyền dữ liệu từ Controller xuống View tương ứng
+        Chỉ sử dụng 1 lần duy nhất, sau khi dùng xong dữ liệu ở hai thằng này được giải phóng.
+   *  Khác nhau giữa ViewBag và ViewData:
+        ViewData là một dạng Dictionary, để truy cập vào biến bạn cần khai báo một key dạng string: ViewData[“Danhmuc”].
+        ViewBag: là một điểm mới trong Net Framework 4.0. Cho phép bạn định nghĩa các biến dạng Dynamic: ViewBag.DanhMuc.
+        ViewData: đòi hỏi bạn cần kiểm tra dữ liệu Null và chuyển đổi kiểu trước khi sử dụng
+        ViewBag: không đòi hỏi kiểm tra hay chuyển đổi kiểu (ép kiểu)
+
+	* Để hiển thị dữ liệu từ controller xuống action, bạn có thể chọn Viewbag hay viewdata.
+    * Để truyền 1 thông điệp, để truyền dữ liệu từ controller nay sang controller khác hay Action khác thì bạn dùng TempData.
+ 
+	 
+54. Lấy ra thông tin của đường dẫn: controller, action, params
+	 var controller = RouteData.Values["controller"];
+	
+55. Custom error:
+		- Thêm vào trong Web.Config phần <system.web>
+		  <customErrors mode="RemoteOnly"/> : user sẽ thấy custom error còn dev sẽ thấy phần báo lỗi
+
+56.	Khi tạo 1 form search vói 'method = get' thì nó sẽ show ra query string, 'method = post' sẽ ẩn query string
+	Ex:
+		<form method="POST">
+		<input type="search" name="strSearch"/>
+		<input type="submit" value="Search"/>
+		</form>
+57. Deploy ứng dụng sang IIS:
+	1. Public ứng dụng dạng Web Deploy Package
+	2. Chỉnh sửa các connectionString
+	3. Vào Cmd, tìm đường dẫn của file, chạy file xxx.cmd với tham số: /T -> /Y
+	
+	
+58.  Từ khóa async và await để chạy một phương thức bất đồng bộ.
+- Một async method sẽ chạy theo kiểu đồng bộ (synchronously) nếu nó không có từ khóa await.
+	
+	
+59. Chạy constructor nhanh:
+	Bấm "ctor" -> tab
+
+60. Khi nào dùn lazy loading:
+		http://stackoverflow.com/questions/7738722/entity-framework-4-1-virtual-properties
+	https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application	
+		
+61. Tạo cột tự tăng trong C#:
+	   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	   public int ID{get; set;}
+	   
+	   
+62. _ViewStart trong MVC:
+	- Mặc định nằm trong thư mục Views, thiết lập các trang Layout mặc định cho tất cả các View trong thư mục và thư mục con.
+	Ex:
+		_ViewStart.cshtml trong thư mục Views, thiết lập thuộc tính Layout là “~/Views/Shared/_Layout.cshtml”.
+		
+		@{
+			Layout = "~/Views/Shared/_Layout.cshtml";
+		}
+
+63. Ignore file trong git SourceTree
+	+ Ignore file db.lock,...
+		git rm --cached -r .vs
+		
+	+ Ignore file theo path:
+		git rm QLNV_WEB\BIZ.QLNV\obj --cached
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+Từ vựng:
+- indicate: chỉ ra
+- section: đoạn, phần
+- portion: phần, chia
+- potentially: có khả năng
+- vulnerable: ˈvəln(ə)rəbəl dễ bị tấn công
+- Dependency Injection (chống lại sự phụ thuộc)

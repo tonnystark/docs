@@ -1,0 +1,767 @@
+﻿	
+PHẦN 1:	 CÁC THẺ TRÌNH BÀY VĂN BẢN:
+---------------------------------------
+- Thẻ title: <title> .. </title>: tiêu đề trang web
+- Thẻ code: <code> .. </code> : bao code lại
+- Thẻ pre: <pre> .. </pre>: ghi như lào ló ra thế đấy.
+- Thẻ br: <br> : ngắt đoạn văn. Thẻ này là thẻ tự đóng.
+-  Thẻ Định dạng chữ viết tắt (abbreviations): <abbr "giải thích ở đây" >
+- Thẻ địa chỉ: <address> ...</address>
+- Thẻ cite: <cite> ... </cite> : in nghiêng nội dung là 1 tiêu để quyển sách, bộ phim..
+- Thẻ wbr: <wbr> : chèn 1 ngắt dòng. Chỉ ngắt khi không gian hiển thị không đủ.
+- Thẻ <hr>: đường kẻ ngang phân cách nội dung
+- Thẻ <ul> ... </ul> : khai báo danh sách không trật tự
+	+ Các phần tử trong danh sách đc đặt trong cặp thẻ <li> ...</li>
+- Thẻ <ol> .. </ol>: danh sách có trật tự
+	+ <li> nội dung </li>
+- Các thẻ 	<b> In đậm </b>
+			<i> in nghiêng </i>
+			<u> Gạch chân </u>
+			<s> Gạch ngang </s> <br>
+			a<sup>2 </sup> + b<sup> 2</sup> = c. (Ghi chỉ số trên)
+			<sub>..</sub> : Ghi chỉ số dưới	
+				
+---------------------------------------
+	** Thuộc tính trong thẻ:
+	- Thẻ <body _thuộctính 1 = "", _thuộctính2 = ""...>
+		+ bgcolor = "màu/ mã màu": màu nền trang web
+		+ background = "path ảnh": ảnh nền trang web.
+
+	- Thẻ <p _thuộctính1 = "", _thuộctính2 = "".. >
+		+ align = "center/ right/ justify..": căn dòng đoạn văn
+
+	- Thẻ <hr _thuộctính1, _thuộctính2..>
+		+ size: độ rộng
+		+ width: độ dài
+		+ color: màu
+		+ align: vị trí
+			Ex: <hr size = "2px", width = "50%", color = "silver", align = "left">
+
+
+											-----------------------------------------
+		
+											PHẦN 2: CÁC THẺ ĐỊNH DẠNG FONT VÀ CỠ CHỮ
+											-----------------------------------------
+1. Cặp thẻ <font> .. </font>
+* Thuộc tính: 
+	- face = "tên font"
+	- size = "cỡ chữ" (từ 1 - 6)
+	- color = "màu/ mã màu".
+	
+	Ex: <font face = "segoe ui" size = "4" color = "51A9FF">... </font>
+2. Các thẻ định dạng cỡ chữ:
+	- Các cặp thẻ từ <h1> đến <h6>
+	 thật không thể tin đc là mình lại gõ đc như vậy
+	 
+3. Cặp thẻ <center> ..</center>: đưa nội dung vào giữa.
+4. Cặp thẻ <blink> ../<blink> : tạo hiệu ứng nhấp nháy
+5. Cặp thẻ <marquee> ... </marquee> : tạo chữ chạy
+* Các thuộc tính:
+	- bgcolor: màu nền
+	- width: độ rộng
+	- height: độ cao
+	- behavior: cách chạy
+	- direction: kiểu chuyển động(up/down/left/right)
+	- hspace : cách với đối tượng bên ngoài theo chiều ngang.
+	- vspace: cách vs đối tượng bên ngoài theo chiều dọc.
+	
+	Ex:
+	<marquee bgcolor = "F5F5DC" width = "600px" height = "100" behavior = "scroll" direction = "left" hspace = "40" vspace = "20">... </marquee>
+	
+	
+	
+	
+	
+											-----------------------------------------
+		
+											PHẦN 3: TẠO LIÊN KẾT TỚI CÁC TRANG HTML KHÁC & CHÈN ẢNH
+		
+											-----------------------------------------
+I. Các liên kết:								
+1. 	Liên kết ngoại trang
+	a) Cặp thẻ <a> </a>
+	- Thuộc tính:
+		+ href = "link liên kết".
+		+ target = "_blank" : mở liên kết trên 1 tab khác.
+		+ title = "nội dung mô tả"
+	Ex: <a href = "file:///C:/Users/MyPC/Desktop/noidung.html" target = "_blank" title = "Click to leave"> Link liên kết</a>
+
+2. Phương pháp đánh dấu nội trang:
+	a) Khai báo điểm đánh dấu:
+	<a name = "tên điểm đánh dấu"> Tên hiển thị </a>
+		Ex: <a name = "Top"> TOP </a>
+	b) Truy suất đến điểm đánh dấu
+	<a href = "#tên điểm đánh dấu"> Tên hiển thị </a>
+		Ex: <a href = "#Top" title = "Click to leave"> BACK</a>
+	
+	*Ứng dụng trong việc tạo các mục lục..
+	
+3. Phương pháp đánh dấu ngoại trang:
+	a) Khai báo điểm đánh dấu:
+	<a name = "tên điểm đánh dấu">.. </a>
+		b) Truy suất đến điểm đánh dấu ngoại trang
+	<a href = "Tên File HTML có đánh dấu#Tên điểm đánh dấu"> Tên hiển thị </a>
+
+II. ĐƯA ẢNH VÀO 1 TRANG HTML
+	1. Làm việc với thẻ IMG và các thuộc tính của nó
+	a) Thẻ <img />
+	- Thuộc tính
+		+ src = "nguồn ảnh.format ảnh".
+		+ width = "chiều rộng"
+		+ height = "chiều cao"
+		+ alt = "mô tả khi ảnh bị xoá/ chưa load"
+		+ border = "độ nét đường viền"
+		+ align = "left/ right": đưa ảnh sang trái/ phải(chỉ có 2 lựa chọn này)
+			Khi sử dụng align thì các nội dung text còn lại sẽ tự động tràn vào khoảng trống mà image để lại.
+		Ex: 
+		<img src = "C:\Users\MyPC\Pictures\chuo.jpg" width = "300px" height = "400px" alt = "C# in Depth" border = "5px"  align = "left"/>	
+		
+		+ hspace = "khoảng cách giữa image với nội bên trái/ phải"
+		+ vspace = "khoảng cách giữa image với các đối tượng theo chiều dọc".
+		
+		
+	
+											-----------------------------------------
+		
+											PHẦN 4: LÀM VIỆC VỚI BẢNG TRONG HTML
+		
+											-----------------------------------------
+	
+	
+1. Cặp thẻ <table> </table> : tạo cột trong bàng
+	- Thuộc tính
+		+ border = "độ rộng đường viền"
+		+ bordercolor = "màu của viền"
+		+ bgcolor = "màu nền của bảng"
+		+ background = "đường dẫn ảnh"
+		+ width = "độ rộng của bảng"
+		+ height = "độ cao của bảng"
+		+ align = "left/ right/ center" : vị trí của bảng
+		+ cellpadding = "khoảng cách giữa nội dung với viền trong ô"
+		+  cellspacing = " khoảng cách giữa viền trên và viền dưới của đường viền"
+		Ex: <table border = "4px" width = "600" height = "200" bordercolor = "red" align = "center" bgcolor = "00FF66"  cellpadding = "2px" cellspacing = "10">
+
+2. Cặp thẻ <tr> </tr> : tạo dòng trong bảng
+	- Thuộc tính:
+		+ height = "độ cao của dòng".
+		+ bgcolor = "màu nền của dòng"
+		+ align = "center/ justify.." : căn text theo chiều ngang
+		+ valign = "top/ bottom": căn text theo chiều dọc
+		+ background = "ảnh nền của dòng"
+	
+	
+3. Cặp thẻ <td> </td>: tạo cột trong bảng
+	- Thuộc tính: 
+		+ height = "độ cao của cột"
+		+ width = "độ rộng của cột"
+	
+*** Các thuộc tính thường dùng trong bảng:	
+	- colspan = "số cột muốn gom"
+	- rowspan = "số hàng muốn gom trong 1 cột"
+		Ex: <td rowspan = 3> The content of the table</td>
+	
+	Ex:
+	----------------------------------
+	<table border = "4px" width = "600" height = "200" bordercolor = "red" align = "center" bgcolor = "00FF66">
+	<tr> 
+			<td colspan = 2> The content of the table</td>
+			<!-- <td> The content of the table</td> -->
+			<td> The content of the table</td>
+	</tr>
+	<tr> 
+			<td>" The content of the table</td> 
+			<td> The content of the table</td>
+			<td rowspan = 2> The content of the table</td>
+	</tr>
+	<tr> 
+			<td> The content of the table</td> 
+			<td> The content of the table</td>
+			<!-- <td> The content of the table</td> -->
+	</tr>
+	
+	</table>"
+
+	----------------------------------
+	
+	
+	
+											-----------------------------------------
+		
+											PHẦN 5: LÀM VIỆC VỚI FORM VÀ CÁC ĐỐI TƯỢNG TRONG FORM
+		
+											-----------------------------------------
+											
+1. Cặp thẻ <form> </form> : khởi tạo một Form
+	- Thuộc tính:
+		+ name = "tên form"
+		+ action = "địa chỉ trang nhận thông tin từ form"
+		+ method = "post/ get" : cách gửi và nhận dữ liệu
+			EX: <form name = "DangKi" action = "tunii.tk" method = "post">
+
+2. Thẻ <input>: tạo ra các đối tượng 
+	- Thuộc tính:
+		+ type = "text | password | checkbox(nhiều lựa chọn)| radio(1 lựa chọn)" : Quy định kiểu hiển thị của 1 đối tượng
+		+ name = "tên của đối tượng"
+		+ value = "giá trị của đối tượng"
+		+ size: chiều dài của ô
+		+ checked = "check": chọn sẵn 1 đối tượng
+		
+		
+	VD: - Đối tượng radio:
+		Ex: Yes <input type = "radio" name = "ok"> No <input type = "radio" name = "ok"> 
+			* Lưu ý: Thuộc tính "name" phải trùng nhau.
+		- Đối tượng file:
+		Ex: <input type = "file">		
+		- Đối tượng button:
+		Ex: <input type = "button" value = "Tên button">		
+			* Lưu ý: value = "tên của button"
+		- Đối tượng Reset:
+		Ex: <input type = "reset" value = "tên của nút">
+		
+3. Cặp thẻ <select> ..</select> : khai báo một danh sách để lựa chọn
+	a) Cặp thẻ <option> Tên lựa chọn <option> : khai báo các lựa chọn
+			- Thuộc tính select: Chọn sẵn 1 lựa chọn mặc định.
+			Ex: <option selected = "selected"> HANOI </option>
+		
+4. Cặp thẻ <textarea> </textarea> : Khai báo một vùng để phản hồi, comment.
+	- Thuộc tính: 
+		+ cols = "độ rộng"
+		+ rows = "độ cao".
+		Ex: <textarea col = "30" rows = "8">Comment </textarea>
+
+		
+5. Sử dụng cặp thẻ <fieldset> </fieldset>  để bao quanh tạo đường viền cho form
+6. Cặp thẻ <legend> </legend> : đặt tiêu đề cho form. Nằm bên trong thẻ "fieldset"
+
+
+
+
+											-----------------------------------------
+		
+											PHẦN 6: LÀM VIỆC VỚI CSS
+		
+											-----------------------------------------
+1. Nhúng trực tiếp style vào thẻ:
+	Ex: <h3 style = "color:grey     "> Test CSS </h3>
+2. Tạo một vùng làm việc nằm trong cặp thẻ <head>
+	Ex: 
+	<style type = "text/css"> 
+	h3 
+	{
+	color: grey;
+	font-size: 100px;
+	}
+	</style>	
+	
+	- Các thuộc tính cách nhau bởi dấu ';'.
+	- Để đặt ảnh nền cho 1 thẻ nào đó:
+		* background-image: url = ("link ảnh");
+	- Ảnh quá nhỏ, sẽ bị lặp, để giới hạn việc lặp ảnh:
+		* background-repeat: 
+			+ no-repeat: không lặp ảnh.
+			+ repeat-x: lặp phương ngang.
+			+ repeat-y: lặp phương dọc.
+			
+	- Quản lí background trong việc cuộn trang:
+		* background-attachment: 
+			+ fixed: giữ nguyên vị trí đối tượng
+			+ scroll: cuộn theo trang.
+			
+			Ex:			
+			body
+			{
+				background-image:url("cs.jpg");
+				background-repeat: no-repeat;
+				background-color: grey;
+				background-attachment: fixed;
+			}
+	- Căn chỉnh background so với các đường biên:
+		* background-position: khoảng cách/ vị trí;
+		Ex: background-position: 20px 100px;
+			background-position: top center;
+			
+			
+			
+3. Tạo một file css ở ngoài:
+	+ File hiện tại liên kết với file css bằng cú pháp:
+		<link rel = "stylesheet" type = "text/css" href = "tên file css" >
+
+											
+
+											
+											
+											
+												-----------------------------------------
+		
+												PHẦN 7:	FONT CHỮ VÀ TEXT TRONG CSS
+		
+												-----------------------------------------
+1. CÁC THUỘC TÍNH CỦA FONT: 
+
+a) Thuộc tính font-family:
+	- Nếu font mà có nhiều hơn 1  khoảng trắng, ta đặt nó trong dấu "".
+	Ex:	font-family: "Segoe ui";
+b) Thuộc tính font-size: cỡ chữ
+	- Đơn vị: px . Ex: font-size: 20px;
+c) Thuộc tính font-style: kiểu chữ	
+	- normal(bình thường)
+	- italic(in nghiêng)
+	- oblique(in xiêng).
+d) Thuộc tính font-weight: độ đậm của chữ	
+    - bold: in đậm.										
+	
+	
+2. CÁC THUỘC TÍNH CỦA TEXT:
+
+a) color: màu chữ
+b) letter-spacing: khoảng cách giữa các kí tự.
+c) word-spacing: khoảng cách giữa các từ
+d) text-indent: thụt vô 1 khoảng đầu dòng.
+	<!-- Ex: text-indent: 20px; thụt vô 20px -->
+e) text-align: vị trí đoạn văn
+	- left: trái
+	- right: phải
+	- center: giữa	
+	- justify: căn đều 2 bên
+
+f) text-decoration: trang trí đoạn văn
+	- underline: gạch chân
+	- line-through: gạch ngang.
+	- overline: gạch trên đầu
+	- blink: chớp tắt	 
+	- none: không đặt thuộc tính
+
+g) text-transform: chuyển kiểu chữ
+	- uppercase: chuyển sang chữ IN.
+	- lowercase: chuyển tất cả thành in thường
+	- capitalize: IN hoa các kí tự đầu mỗi từ
+	- none: không áp dụng gì cả.
+	
+	
+											
+											
+												-----------------------------------------
+		
+												PHẦN 8:	CLASS, ID VÀ ĐIỀU KHIỂN HOVER TRONG CSS
+		
+												-----------------------------------------
+											
+1. CLASS: nhóm các đối tượng cùng thuộc tính để tái sử dụng
+	- Cú pháp:	class = "tên class"
+	<!-- Ex: <ul class = "tp"> -->
+	- Cách gọi: Tênthẻ.tênclass
+		<!-- Ex: ul.tp -->
+		
+2. ID: 	nhận dạng đối tượng đặc trưng và duy nhất trong HTML.
+	- Cú pháp: id = "tên id"									
+	Ex:
+		<ul class = "tp">
+		<li id = "td"> HÀ NỘI</li>
+		<li> THANH HÓA </li>
+		</ul>
+	- Cách gọi: tênthẻ#tênid (dấu thăng)
+	Ex: ul li#td
+	
+3. ĐIỀU KHIỂN HOVER:
+	- Khai báo: 
+	tên thẻ:hover
+	{
+		các thuộc tính
+	}
+	<!-- Ex1: hover trên thẻ li -->
+	ul li:hover
+	{
+	color: blue;
+	text-decoration: underline;
+	}
+	
+	<!-- Ex2: hover trên các thẻ khác: -->
+	ul li:hover a
+	{
+	color: blue;
+	}											
+											
+											
+											
+											
+												-----------------------------------------
+		
+												PHẦN 9:	CÁC THUỘC TÍNH CỦA BOX MODEL TRONG CSS
+		
+												-----------------------------------------
+	
+<!-- -- Box model là khoảng không gian bao quanh các nội dung	 -->
+
+1. Sử dụng các thuộc tính của border trong CSS: thẻ <p>, <form>, <table>, <image>, ....
+	- border-width:
+	- border-color:
+	- border-style: kiểu hiển thị đường viền
+		+ solid: nét liền
+		+ dotted: nét chấm đứt
+		+ dashed: nét gạch đứt
+		+ double: đường viền kép
+		+ groove: chìm sâu xuống
+		+ ridge: nổi lên
+		+ inset: nội dung trong đường viền bị hằn sâu xuống
+		+ outset: nội dung trong đường viền nổi lên
+		
+	<!-- Ex1: Cách 1 -->
+			table
+			{
+			border-width: 5px;
+			border-color: green;
+			border-style: outset;
+			} 
+
+	<!-- Ex2: Cách 2 -->
+		table
+		{
+			border: 5px blue dashed;
+		}
+				
+											
+2. Thuộc tính Margin trong CSS: Khoảng cách với nội dung bên ngoài
+	- Top: cách trên
+	- Right: phải
+	- Bottom: dưới
+	- Left: bên trái
+	
+	<!-- Ex: -->
+		table
+		{
+		border: 5px blue dashed;
+		margin-top: 10px;
+		margin-right: 15px;
+		margin-bottom: 25px;
+		margin-left: 20px;
+		}
+							
+	<!-- Ex2: Viết tắt -->
+		margin: 10px 15px 20px 25px;
+		margin: 10px 20px; // trái = phải // trên = dưới
+		margin: 25px; // trái - phải - trên - dưới = nhau
+		
+3. Thuộc tính padding: Khoảng cách từ border tới nội dung bên trong
+	- Top: cách trên
+	- Right: phải
+	- Bottom: dưới
+	- Left: bên trái
+	
+	<!-- Ex: -->
+		padding: 20px; // trái = phải = trên = dưới : cách 20pixel
+											
+											
+											
+											
+											
+											
+											
+												-----------------------------------------
+		
+												PHẦN 9:	CÁC THUỘC TÍNH ĐỊNH KÍCH CỠ, BỐ CỤC
+		
+												-----------------------------------------
+	
+1. Thuộc tính float:
+ <!-- Dồn nội dung web về một phía nào đó -->
+  + left
+  + right
+2. Thuộc tính clear:
+ <!-- Ngăn cản sự dồn lên của nội dung trong 1 thẻ -->
+	+ both:
+	------------------------------------"
+	
+
+1.  Xử lí lớp giả first-child trong html:
+	p:first-child{ }
+
+2. Các trạng thái của link:
+	"
+		/* unvisited link */
+		a:link {					background-color: lightblue;
+				}
+
+				/* visited link */
+				a:visited {
+					background-color: lightblue;
+				}
+
+				/* mouse over link */
+				a:hover {
+					background-color: yellow;
+				}
+
+				/* selected link */
+				a:active {
+					background-color: yellow;
+				}
+	"
+	* " "a:hover" phải theo sau "a:link" và "a:visited" trong phần định nghĩa CSS. "a:active" phải theo sau "a:hover".	
+	"
+	
+2. Lớp giả dòng đầu tiên:
+	Ex: p:first-line{
+			color:red;
+			}
+
+3. Lớp giả kí tự đầu tiên:
+	p:first-letter{}
+
+4. Display: block, inline, inline-block, list-item, none.
+	*block: cho phép định nghĩa height, width như một khối(padding, margin), nằm trong hàng riêng biệt
+		
+	* inline: các phần tử hiển thị trên cùng hàng, ex:	<span>, <a><img>
+	* Thành phần inline có thể nằm trong thành phần Block, nhưng Block không thể nằm trong thành phần Inline.	
+	
+	* Inline-block: giúp đối tượng hiển thị trên cùng 1 hàng, có thể sử dụng các thuộc tính 'width. height, padding' của Block. Thường dùng tạo menu.
+		
+	* list-item: chuyển các phần tử về hiển thị như 1 mục danh sách để dùng thuộc tính 'list-style'
+	
+	*none: ẩn phần tử, ẩn luôn khoảng trống. Có thể thay bằng 'visibility: hidden.' nhưng không ẩn khoảng trống.
+		
+5. thuộc tính max-width: để tự động điều chỉnh độ rộng phù hợp với kích thước bên ngoài.
+
+6. Overflow:
+	Xác định khi nào cắt nội dung của text hay add vào 1 thanh scrollbar khi nội dung quá lớn để phù hợp 1 khu vực
+	- Các giá trị:
+		visible
+		hidden
+		scroll
+		overflow-x
+		overflow-y
+											
+7. Position: chỉ ra cụ thể vị trí cho 1 phần tử(static[tĩnh], relative[tương đối], fixed[cố định], absolute[tuyệt đối])
+	
+	- static: mặc định, không bị tác động bởi các thuộc tính: top, right, left, bottom.
+	- relative: chịu tác động bởi các thuộc tính top, right, left, bottom.
+	- fixed: được cố định tại 1 vị trí nhất định, không bị ảnh hưởng bởi việc cuộn trang.
+	- absolute: là vị trí tương đối so với phần tử gần nó.(lấy phần tử trước làm mốc)
+	
+	* Thành phần nào dùng Position sẽ đc sắp xếp nằm bên trên.
+					
+8. Thuộc tính "border-collapse":		
+	Gộp các border đôi trong bảng thành 1 border đơn.
+	Ex: __
+		__ => ___
+					
+		table {
+				border-collapse: collapse;
+			}		
+9. 	Horizontal Alignment(Căn ngang)				
+		Dùng: text-align: left, right, center
+10. Vertical Alignment (Căn dọc)	:
+		Dùng: vertical-align: top, bottom, middle
+11. Đường chia ngang:
+		
+		Dùng: border-bottom:1px solid #ddd;
+		Chỉ gạch ngang ở dưới text
+12. Để các màu nền trong bảng xen kẽ nhau(dòng chẵn/ lẽ):
+	Dùng: nth-child()
+	Ex: tr:nth-child(even) {background-color: #f2f2f2}
+	-"Tại các dòng chẵn(even) hoặc lẽ(odd) "
+13. Để set 1 bảng là Responsive:
+	Trong table dùng thuộc tính:  overflow-x:auto 		
+	
+14. Để căn ngang giữa, ta dùng:
+		margin: auto;
+		
+15. CSS	Combinators(Ralationship between the selectors):
+	- Descendant Selector(con): các thẻ nằm trong một thể khác
+		Ex: thể <p> nằm trong <div>
+		 div p {
+				background-color: yellow;}
+			<div>
+			<p>Paragraph 1 in the div.</p> --"Descendant"
+			</div>
+			
+	- Child Selector(>):  các thẻ là con trực tiếp của thẻ cha.
+		Ex:
+		div > p {}
+		
+		<div>
+			<p> test 1 </p>
+			<p> test2 </p>
+			<span> <p> test3 </p> </span> --"k phải child, nhưng là Descendant"
+		</div>
+		
+	- Adjacent Sibling Selector(+) : chọn ra các thẻ là  A chị em liền kề (các thẻ gần nhau, cùng cấp)
+		Ex: 
+		div > p + p {}: chọn ra các thẻ con trực tiếp của div: thẻ p, nằm liền kề với thẻ p.
+		
+		<div>
+			<p> test1 </p>
+			<p> test2 </p> --"chọn ra thẻ này"
+		</div>
+		
+	- General Sibling Selector(~) : chọn ra các phần tử là anh chị em của một phần tử cụ thể.
+		Ex: 
+		div ~ p {}: chọn ra các thẻ p là anh chị em của div: thẻ p
+		
+		<div> test </div> --"sibling"
+		
+		<h1> test <h1>
+		
+		<p> test1 </p>
+		<p> test2 </p>
+		
+		
+16. Pseudo classes:
+	* Thường dùng để định nghĩa một trạng thái nào đó của phần tử, ex: hover, click...
+	* Syntax:
+	
+		selector:pseudo-class {
+		property:value;
+					}	
+	
+17. Pseudo-elements:
+	* Thường dùng để định nghĩa một phần của phần tử(kí tự đầu, thêm đầu, cuối...)
+	* Syntax:
+	
+		selector::pseudo-element {
+		property:value;
+			}
+		
+	* Các Pseudo-element thường dừng: 
+		+  ::first-line : dòng đầu
+			Chỉ áp dụng cho các phần tử có block-level
+		Ex: 
+			p::first-line {
+			color: #ff0000;
+			font-variant: small-caps;	}
+		
+		+ ::first-letter: kí tự đầu
+			Chỉ áp dụng cho các phần tử có block-level
+			
+		+ ::before : chèn một số nội dung trước phần tử nào đó
+			Ex:
+				h1::before {
+				content: url(smiley.gif);
+						}
+		+ ::selection : sử dụng khi người dùng chọn, bôi đen một dòng nào đó.
+			Ex:
+				::selection {
+				color: red;
+				background: yellow;
+							}
+18. Opacity(độ trong suốt):
+	* Giá trị chạy từ 0.0 - 1.0
+		+ 1.0: không mờ
+		+ 0.5: mờ 50%
+		+ 0: mờ 100%.
+
+19. Để loại bỏ các kí bullet mặc định khi xài thẻ <ul>, ta dùng:
+	list-style-type: none;
+
+20. Để remove browser default setting, dùng:
+	margin: 0;
+	padding:0;
+
+	
+21. Lớp giả :not (loại trừ class nào đó):
+	Ex:
+			li a:hover:not(.active){
+			background-color: #111;
+			text-decoration:none; }
+			
+			// khi hover, sẽ bỏ qua class 'active'
+
+22. Thuộc tính Z-Index :
+		'z-index: value;'
+	- Để thiết lập thứ tự xếp chồng lên nhau.
+	- Thứ tự xếp chồng dựa theo giá trị, cao trên, thấp dưới, mặc định là 0.
+	* 'z-index' chỉ làm việc với thuộc tính Position
+	
+			
+23. Thuộc tính 'border-radius' : để bo tròn góc
+24. CSS Attribute Selector :
+	 Để chọn 1 phần tử với 1 thuộc tính và set giá trị cho nó.
+		Ex:
+	+	a[href] hoặc
+		a[href="#"]{
+			background-color:red;
+		}		
+			<a href="#" target="_blank">disney.com</a>
+		Dịch: Chọn thuộc tính 'href' với giá trị "#" set background-color = red;
+		
+	+ [attribute~="value"]: để chọn các giá trị của thuộc tính chứa một từ cụ thể
+		Ex:
+				img[title~="flower"]{
+					//"chọn ra những hình chứa chữ flower"
+					//"ex: winter flower" => được
+					// "my-flower" "=> không thỏa"
+				}
+				
+			<img src="klematis.jpg" title="klematis flower" width="150" height="113">
+			<img src="img_flwr.gif" title="flower" width="224" height="162">
+			<img src="img_tree.gif" title="my-flower" width="200" height="358"> "=> không thỏa"
+					
+	+ [attribute|="value"]: chọn ra các phần tử với giá trị của thuộc tính 'bắt đầu' bằng một giá trị cụ thể.
+	
+			Ex:
+			[class|=top]{
+			"Dịch: chọn tất cả các phần tử có giá trị thuộc tính class bắt đầu với từ top "
+			}
+			
+			<h1 class="top-header">Welcome</h1>
+			<p class="top-text">Hello world!</p>
+			<p class="topxxx">Are you learning CSS?</p> "=> không thỏa"
+
+	+ [attribute^="value"]: chọn ra các phần tử có giá trị thuộc tính 'bắt đầu' bằng một 'kí tự cụ thể'
+			[class^="t"]{
+			// "tất cả class bắt đầu bằng kí tự t"
+			}
+	
+			Ex:
+			<h1 class="top-header">Welcome</h1>
+			<p class="top-text">Hello world!</p>
+			<p class="xopcontent">Are you learning CSS?</p> "=> không thỏa"
+				
+	+ [attribute$="value"]: chọn ra các phần tử có giá trị thuộc tính 'kết thúc' vs một giá trị cụ thể.
+	
+			Ex:
+			[class$="test"]{
+				//"dịch: những class có thuộc tính giá trị kết thúc vs từ test"
+			}
+			
+			<div class="first_test">The first div element.</div>
+			<div class="testsecond">The second div element.</div> "=> không thỏa"
+			<div class="my-test">The third div element.</div> 
+									
+			
+	+ [attribute*="value"]: chọn ra các phần tử có giá trị thuộc tính 'chứa' một giá trị cụ thể 'tại bất cứ vị trí nào' .
+		
+		Ex:
+			[class*="te"]{
+			
+			}
+			
+			<div class="te_first">The first div element.</div>
+			<div class="t_second">The second div element.</div> "=> không thỏa"
+
+
+
+25. Thuộc tính "box-sizing"	:
+	* Cho phép ta thêm 'padding' vào 1 phần tử mà không ảnh hưởng đến độ cao/rộng của nó.
+	* Sử dụng:    box-sizing: border-box;
+	Link: http://www.w3schools.com/css/css3_box-sizing.asp
+
+			
+26. Sử dụng pesudo class not: để huỷ áp dụng css vào 1 class nào đó
+	https://css-tricks.com/almanac/selectors/n/not/
+			
+27. 			
+			
+			
+			
+			
+			
+Verb:
+- notation: kí hiệu
+- double colon: dấu 2 chấm
+- portion: phần, chia ra
+
+
+			
+			
+Đang học:
+https://teamtreehouse.com/library/html/text/preformatted-text
