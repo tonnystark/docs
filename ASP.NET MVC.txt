@@ -1,4 +1,5 @@
-﻿1.RenderBody() ở trang _Layout.cshtml dùng để render một phần nội dung trong body nào đó.
+﻿
+1.RenderBody() ở trang _Layout.cshtml dùng để render một phần nội dung trong body nào đó.
 2. Render một section, dùng:
    @RenderSection("<tên section>", false)
    - true: bắt buộc, ngược lại false
